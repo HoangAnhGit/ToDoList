@@ -13,10 +13,10 @@
         android:theme="@style/Theme.ToDoList"
         tools:targetApi="31">
         <activity
-            android:name=".View.ActivityView.AddTask"
+            android:name=".View.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".View.MainActivity"
+            android:name=".View.ActivityView.AddTask"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

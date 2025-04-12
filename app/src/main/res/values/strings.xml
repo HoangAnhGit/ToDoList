@@ -74,4 +74,10 @@
     <string name="filterAll">All</string>
     <string name="filterWeek">This Week</string>
     <string name="filterMoth">This Moth</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="txtImg">Text IMG</string>
+    <string name="txtLayout">Text Layout</string>
 </resources>

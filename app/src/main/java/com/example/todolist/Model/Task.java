@@ -50,6 +50,78 @@ public class Task {
         this.idTag = idTag;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
+
+    public Long getIdIcon() {
+        return idIcon;
+    }
+
+    public void setIdIcon(Long idIcon) {
+        this.idIcon = idIcon;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public LocalTime getDueTime() {
+        return dueTime;
+    }
+
+    public void setDueTime(LocalTime dueTime) {
+        this.dueTime = dueTime;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public long getIdTag() {
+        return idTag;
+    }
+
+    public void setIdTag(long idTag) {
+        this.idTag = idTag;
+    }
+
     public RepeatFrequency getRepeatFrequency() {
         return repeatFrequency;
     }

@@ -3,12 +3,12 @@
     <item
         android:id="@+id/index"
         android:enabled="true"
-        android:icon="@drawable/home"
+        android:icon="@mipmap/home"
         android:title="@string/home"/>
     <item
         android:id="@+id/calendar"
         android:enabled="true"
-        android:icon="@drawable/calendar"
+        android:icon="@mipmap/calender"
         android:title="@string/calendar" />
     <item
         android:id="@+id/fab"
@@ -17,11 +17,11 @@
     <item
         android:id="@+id/focus"
         android:enabled="true"
-        android:icon="@drawable/clock"
+        android:icon="@mipmap/focus"
         android:title="@string/focus" />
     <item
         android:id="@+id/profile"
         android:enabled="true"
-        android:icon="@drawable/setting"
+        android:icon="@mipmap/profile"
         android:title="@string/profile" />
 </menu>

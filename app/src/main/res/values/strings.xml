@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">ToDoList</string>
+    
+    <string name="home">Home</string>
+    <string name="calendar">Calendar</string>
+    <string name="focus">Focus</string>
+    <string name="profile">Profile</string>
+    
+    
+    <string name="titleFocus">Focus Mode</string>
+    <string name="cancel">Cancel</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="txtContinue">Continue</string>
+
+
+    <string name="login">Sign up or log in </string>
+    <string name="TaskNotComplete">Task Not Complete</string>
+    <string name="taskComplete">Task Complete</string>
+    <string name="setting">Setting</string>
+    <string name="general">General</string>
+    <string name="account">Account</string>
+    <string name="ui">UI</string>
+    <string name="reset">Reset Entire Routine </string>
+    <string name="helpFeedback">Help &amp; Feedback</string>
+    <string name="help">Help</string>
+    <string name="restore">Restore</string>
+    <string name="feedback">Feedback</string>
+    <string name="rate">Rate us</string>
+
+    <string name="date">Date</string>
+    <string name="today">Today</string>
+    <string name="repeat">Repeat</string>
+    <string name="time">Time</string>
+    <string name="reminder">Reminder</string>
+    <string name="tag">Tag</string>
+
+    <string name="editTask">Edit Task</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="create">Create</string>
+
+    <string name="addTag">Add new</string>
+    <string name="newTag">New Tag</string>
+    <string name="newTask">New Task</string>
+    <string name="des">Description</string>
+
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+    <string name="every">Every</string>
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="interval">InterVal</string>
+
+    <string name="repeatOff">Repeat off</string>
+    <string name="timeOff">Do task any time of the day</string>
+    <string name="reminderOff">No Reminder</string>
+    <string name="off">Off</string>
+    <string name="anyTime">Anytime</string>
+    <string name="noTag">No Tag</string>
+
+    <string name="desRepeat">Define a cycle for you plan</string>
+    <string name="desTime">Set a specified  time to do it </string>
+    <string name="titleTime">Specified time</string>
+    <string name="desReminder">Set a specified time to reminder me</string>
+    <string name="atTime">At time of event</string>
+    <string name="beforeEven">10 minutes before</string>
+
+    <string name="noTask">Today no task \n Click + to add new task</string>
+
+    <string name="filterToday">Today</string>
+    <string name="filterAll">All</string>
+    <string name="filterWeek">This Week</string>
+    <string name="filterMoth">This Moth</string>
+</resources>

@@ -97,4 +97,8 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
     </string>
+
+    <string name="year">2025</string>
+    <string name="November">November</string>
+    <string name="Wed">Wed</string>
 </resources>

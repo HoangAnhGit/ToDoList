@@ -7,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.todolist.R;
 
-public class Tag extends AppCompatActivity {
+public class Calendar extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_tag);
+        setContentView(R.layout.activity_calendar);
 
     }
 }

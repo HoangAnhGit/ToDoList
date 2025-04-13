@@ -13,6 +13,21 @@
         android:theme="@style/Theme.ToDoList"
         tools:targetApi="31">
         <activity
+            android:name=".View.ActivityView.Reminder"
+            android:exported="false" />
+        <activity
+            android:name=".View.ActivityView.Time"
+            android:exported="false" />
+        <activity
+            android:name=".View.ActivityView.Repeat"
+            android:exported="false" />
+        <activity
+            android:name=".View.ActivityView.Calendar"
+            android:exported="false" />
+        <activity
+            android:name=".View.ActivityView.ActivitySplash"
+            android:exported="false" />
+        <activity
             android:name=".View.ActivityView.NewTag"
             android:exported="false" />
         <activity

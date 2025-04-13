@@ -14,7 +14,7 @@
         android:text="@string/Hi"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        style="@style/TextAppearance.MaterialComponents.Headline.Bold"/>
+        style="@style/TextHeading"/>
 
     <TextView
         android:id="@+id/txtGuess"

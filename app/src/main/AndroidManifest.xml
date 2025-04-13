@@ -16,10 +16,6 @@
             android:name=".View.ActivityView.EditTask"
             android:exported="false" />
         <activity
-            android:name=".View.ActivityView.ActicvityEdit"
-            android:exported="false"
-            android:theme="@style/Theme.ToDoList" />
-        <activity
             android:name=".View.MainActivity"
             android:exported="false" />
         <activity

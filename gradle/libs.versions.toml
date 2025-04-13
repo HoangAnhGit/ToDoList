@@ -20,6 +20,7 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRxjava3" }
 room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomRxjava3" }
 storage = { group = "androidx.test.services", name = "storage", version.ref = "storage" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }

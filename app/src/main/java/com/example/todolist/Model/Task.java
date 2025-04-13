@@ -4,10 +4,13 @@ package com.example.todolist.Model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.example.todolist.Model.Enum.ReminderSetting;
 import com.example.todolist.Model.Enum.RepeatFrequency;
 import com.example.todolist.Model.Enum.TaskStatus;
+import com.example.todolist.Utils.LocalDateConverter;
+import com.example.todolist.Utils.LocalTimeConverter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,6 +18,7 @@ import java.time.LocalDateTime;
 
 
 @Entity(tableName = "task")
+@TypeConverters({LocalDateConverter.class, LocalTimeConverter.class})
 public class Task {
 
     @PrimaryKey(autoGenerate = true)
@@ -32,21 +36,18 @@ public class Task {
 
     private TaskStatus status = TaskStatus.PENDING;
 
-    private LocalDateTime createdAt;
-
 
     private long idTag ;
 
     public Task() {
     }
 
-    public Task(String title, String description, String colorCode, long idIcon, LocalDate dueDate, LocalDateTime createdAt, long idTag) {
+    public Task(String title, String description, String colorCode, long idIcon, LocalDate dueDate, long idTag) {
         this.title = title;
         this.description = description;
         this.colorCode = colorCode;
         this.idIcon = idIcon;
         this.dueDate = dueDate;
-        this.createdAt = createdAt;
         this.idTag = idTag;
     }
 
@@ -106,13 +107,6 @@ public class Task {
         this.dueTime = dueTime;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public long getIdTag() {
         return idTag;

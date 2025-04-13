@@ -65,84 +65,129 @@
         app:layout_constraintTop_toTopOf="@id/search_bar" />
 
 
-    <TextView
-        android:id="@+id/filterAll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/filterAll"
-        android:background="@drawable/bg_filter"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        style="@style/Base.TextAppearance.AppCompat.Caption."/>
-
-    <TextView
-        android:id="@+id/filterToday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/filterAll"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/filterToday"
-        android:background="@drawable/bg_filter"
-        android:layout_marginStart="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        style="@style/Base.TextAppearance.AppCompat.Caption."/>
-
-    <TextView
-        android:id="@+id/filterWeek"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/filterToday"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/filterWeek"
-        android:background="@drawable/bg_filter"
-        android:layout_marginStart="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        style="@style/Base.TextAppearance.AppCompat.Caption."/>
-
-
-    <TextView
-        android:id="@+id/filterMoth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/filterWeek"
-        app:layout_constraintTop_toBottomOf="@+id/search_bar"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="@string/filterMoth"
-        android:background="@drawable/bg_filter"
-        android:layout_marginStart="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        style="@style/Base.TextAppearance.AppCompat.Caption."/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_task"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_task"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterToday"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/search_bar">
+
+        <TextView
+            android:id="@+id/filterAll"
+            style="@style/Base.TextAppearance.AppCompat.Caption."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_filter"
+            android:gravity="center"
+            android:paddingStart="24dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="@string/filterAll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/filterToday"
+            style="@style/Base.TextAppearance.AppCompat.Caption."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_filter"
+            android:gravity="center"
+            android:paddingStart="24dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="@string/filterToday"
+            app:layout_constraintStart_toEndOf="@+id/filterAll"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/filterWeek"
+            style="@style/Base.TextAppearance.AppCompat.Caption."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_filter"
+            android:gravity="center"
+            android:paddingStart="24dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="@string/filterWeek"
+            app:layout_constraintStart_toEndOf="@+id/filterToday"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
+        <TextView
+            android:id="@+id/filterMoth"
+            style="@style/Base.TextAppearance.AppCompat.Caption."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_filter"
+            android:gravity="center"
+            android:paddingStart="24dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="@string/filterMoth"
+            app:layout_constraintStart_toEndOf="@+id/filterWeek"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filterToday" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/LayoutNoTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imgNoTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/txtImg"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/rafiki"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/clickToAddTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/noTask"
+            android:gravity="center"
+            style="@style/Base.TextAppearance.AppCompat.Body2."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgNoTask"
+            android:layout_marginTop="16dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

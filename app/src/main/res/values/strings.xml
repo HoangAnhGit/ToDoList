@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToDoList</string>
+    <string name="app_name">To Do List</string>
 
     <string name="home">Home</string>
     <string name="calendar">Calendar</string>
@@ -15,7 +15,8 @@
 
 
     <string name="login">Sign up or log in </string>
-    <string name="TaskNotComplete">Task Not Complete</string>
+    <string name="TaskTotal">Total Task</string>
+    <string name="o">0</string>
     <string name="taskComplete">Task Complete</string>
     <string name="setting">Setting</string>
     <string name="general">General</string>
@@ -90,6 +91,8 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+
+    <string name="signUp">Sign up or log in </string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

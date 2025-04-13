@@ -14,7 +14,6 @@ import com.example.todolist.Utils.LocalTimeConverter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.LocalDateTime;
 
 
 @Entity(tableName = "task")

@@ -361,7 +361,8 @@
                         android:layout_marginEnd="16dp"
                         android:text="@string/today"
                         app:layout_constraintEnd_toStartOf="@+id/pickDate"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        style="@style/Base.TextAppearance.AppCompat.Body2."/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

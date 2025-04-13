@@ -50,4 +50,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.room.rxjava3)
     annotationProcessor (libs.room.compiler)
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 }

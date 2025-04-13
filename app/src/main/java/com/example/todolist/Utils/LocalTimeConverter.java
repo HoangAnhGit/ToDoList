@@ -1,9 +1,6 @@
 package com.example.todolist.Utils;
 
-import android.os.Build;
-
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.room.TypeConverter;
 
 import java.time.LocalTime;

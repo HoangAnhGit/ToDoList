@@ -11,5 +11,22 @@ public class Icon {
     private long id;
     private int path;
 
+    public Icon() {
+    }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getPath() {
+        return path;
+    }
+
+    public void setPath(int path) {
+        this.path = path;
+    }
 }

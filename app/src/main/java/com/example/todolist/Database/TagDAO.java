@@ -1,5 +1,6 @@
 package com.example.todolist.Database;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -9,6 +10,7 @@ import com.example.todolist.Model.Tag;
 
 import java.util.List;
 
+@Dao
 public interface TagDAO {
     @Insert
     long insertTag(Tag tag);

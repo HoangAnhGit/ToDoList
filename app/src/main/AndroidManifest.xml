@@ -37,7 +37,7 @@
             android:name=".View.ActivityView.Calendar"
             android:exported="false" />
         <activity
-            android:name=".View.ActivityView.ActivitySplash"
+            android:name=".View.MainActivity"
             android:exported="false" />
         <activity
             android:name=".View.ActivityView.NewTag"
@@ -49,10 +49,10 @@
             android:name=".View.ActivityView.EditTask"
             android:exported="false" />
         <activity
-            android:name=".View.MainActivity"
+            android:name=".View.ActivityView.AddTask"
             android:exported="false" />
         <activity
-            android:name=".View.ActivityView.AddTask"
+            android:name=".View.ActivityView.ActivitySplash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -9,7 +9,7 @@
     <color name="gray">#CCCCCC</color>
     <color name="light_purple">#F4ECFE</color>
     <color name="light_blue">#F0F0FF</color>
-    
+
     <color name="item_pink">#FFD9F9</color>
     <color name="item_orange">#FFE4C1</color>
     <color name="item_blue">#D3E7FF</color>
@@ -17,6 +17,12 @@
     <color name="item_green">#DDF8B6</color>
     <color name="item_light_green">#CBF4EA</color>
     <color name="item_purple">#E9D9FF</color>
+
+    <color name="green">#34C759</color>
+    <color name="light_blue_50">#FFE1F5FE</color>
+    <color name="light_blue_200">#FF81D4FA</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
 
 
 </resources>

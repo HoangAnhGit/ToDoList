@@ -61,6 +61,12 @@
     <string name="off">Off</string>
     <string name="anyTime">Anytime</string>
     <string name="noTag">No Tag</string>
+    <string name="SpecifiedTime">Specified time</string>
+    <string name="detailTime">Set a specified  time to do it </string>
+    <string name="detailReminder">Set a specified time to reminder</string>
+    <string name="detailRepeat">Define a cycle for you plan</string>
+    <string name="pointTime">Point time</string>
+    <string name="Interval">Interval</string>
 
     <string name="desRepeat">Define a cycle for you plan</string>
     <string name="desTime">Set a specified  time to do it </string>
@@ -101,4 +107,7 @@
     <string name="year">2025</string>
     <string name="November">November</string>
     <string name="Wed">Wed</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>

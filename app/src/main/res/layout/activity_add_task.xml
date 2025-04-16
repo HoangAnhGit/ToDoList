@@ -189,7 +189,7 @@
                         android:contentDescription="@string/txtImg"/>
                 </FrameLayout>
 
-                <!-- COLOR OPTION 5 -->
+
                 <FrameLayout
                     android:id="@+id/colorOption5"
                     android:layout_width="wrap_content"
@@ -238,7 +238,6 @@
                         android:contentDescription="@string/txtImg"/>
                 </FrameLayout>
 
-                <!-- COLOR OPTION 7 -->
                 <FrameLayout
                     android:id="@+id/colorOption7"
                     android:layout_width="wrap_content"

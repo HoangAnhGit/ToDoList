@@ -6,6 +6,7 @@ import androidx.room.*;
 
 import com.example.todolist.Model.Enum.TaskStatus;
 import com.example.todolist.Model.Task;
+import com.example.todolist.Model.TaskWithTag;
 
 import java.util.List;
 
@@ -24,9 +25,6 @@ public interface TaskDAO {
     @Query("SELECT * FROM task WHERE id = :id")
     Task getTaskById(long id);
 
-    @Query("SELECT * FROM task WHERE idTag = :tagId ORDER BY dueDate")
-    List<Task> getTasksByTag(long tagId);
-
     @Query("SELECT * FROM task ORDER BY dueDate")
     LiveData<List<Task>> getAllTasks();
     @Query("SELECT * FROM task WHERE status = :status")
@@ -37,4 +35,9 @@ public interface TaskDAO {
 
     @Query("DELETE FROM task WHERE status = :status")
     void deleteTasksByStatus(TaskStatus status);
+
+    @Transaction
+    @Query("SELECT * FROM task")
+    LiveData<List<TaskWithTag>> getTasksWithTag();
+
 }

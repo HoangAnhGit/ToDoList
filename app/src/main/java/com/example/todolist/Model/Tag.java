@@ -9,26 +9,21 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "tag")
 public class Tag {
 
-
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private int uid;
 
     private String title;
-
-    public Tag(String title) {
-        this.title = title;
-    }
 
     public String getTitle() {
         return title;
     }
 
-    public long getId() {
-        return id;
+    public int getUid() {
+        return uid;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public void setTitle(String title) {

@@ -1,5 +1,6 @@
 package com.example.todolist.Database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -21,11 +22,14 @@ public interface TagDAO {
     @Delete
     int deleteTag(Tag tag);
 
-    @Query("SELECT * FROM tag ORDER BY title")
-    List<Tag> getAllTags();
+    @Query("DELETE FROM tag")
+    void deleteAllTags();
 
-    @Query("SELECT * FROM tag WHERE id = :id")
-    Tag getTagById(long id);
+    @Query("SELECT * FROM tag ORDER BY title ASC")
+    LiveData<List<Tag>> getAllTags();
+
+    @Query("SELECT * FROM tag WHERE uid = :id")
+    Tag getTagById(int id);
 
     @Query("SELECT * FROM tag WHERE title = :title LIMIT 1")
     Tag getTagByTitle(String title);

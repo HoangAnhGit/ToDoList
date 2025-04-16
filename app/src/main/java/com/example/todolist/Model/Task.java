@@ -2,6 +2,7 @@ package com.example.todolist.Model;
 
 
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
@@ -21,13 +22,13 @@ import java.time.LocalTime;
 public class Task {
 
     @PrimaryKey(autoGenerate = true)
-    private Long id;
+    private int id;
 
 
     private String title;
     private String description;
     private String colorCode;
-    private Long idIcon;
+    private int idIcon;
     private LocalDate dueDate;
     private LocalTime dueTime;
     private RepeatFrequency repeatFrequency = RepeatFrequency.OFF;
@@ -36,25 +37,15 @@ public class Task {
     private TaskStatus status = TaskStatus.PENDING;
 
 
-    private long idTag ;
+    @ColumnInfo(name = "tag_id")
+    private int idTag ;
 
-    public Task() {
-    }
 
-    public Task(String title, String description, String colorCode, long idIcon, LocalDate dueDate, long idTag) {
-        this.title = title;
-        this.description = description;
-        this.colorCode = colorCode;
-        this.idIcon = idIcon;
-        this.dueDate = dueDate;
-        this.idTag = idTag;
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -82,11 +73,11 @@ public class Task {
         this.colorCode = colorCode;
     }
 
-    public Long getIdIcon() {
+    public int getIdIcon() {
         return idIcon;
     }
 
-    public void setIdIcon(Long idIcon) {
+    public void setIdIcon(int idIcon) {
         this.idIcon = idIcon;
     }
 
@@ -107,11 +98,11 @@ public class Task {
     }
 
 
-    public long getIdTag() {
+    public int getIdTag() {
         return idTag;
     }
 
-    public void setIdTag(long idTag) {
+    public void setIdTag(int idTag) {
         this.idTag = idTag;
     }
 

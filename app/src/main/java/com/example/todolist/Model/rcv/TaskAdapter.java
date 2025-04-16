@@ -18,7 +18,7 @@ import java.util.List;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
 
     Context context;
-    private List<Task> mList;
+    private final List<Task> mList;
     TaskItemEventHandler taskItemEventHandler;
 
 

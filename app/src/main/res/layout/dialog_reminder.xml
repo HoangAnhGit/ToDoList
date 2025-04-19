@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/dialog_background"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tvReminderTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn nhắc nhở"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:paddingBottom="8dp" />
+
+    <RadioGroup
+        android:id="@+id/reminderOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/noReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không nhắc nhở"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/onEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhắc khi sự kiện diễn ra" />
+
+        <RadioButton
+            android:id="@+id/fifteenMinutesBefore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15 phút trước sự kiện" />
+
+        <RadioButton
+            android:id="@+id/oneHourBefore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 giờ trước sự kiện" />
+
+    </RadioGroup>
+
+</LinearLayout>

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
+    android:id="@+id/layout_detail_item"
     android:background="@drawable/bg_dialog_detail_task"
     android:padding="16dp">
 
@@ -112,19 +113,21 @@
 
     <Button
         android:id="@+id/btnEdit"
+        style="@style/TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/editTask"
         android:background="@drawable/bg_btn_edit_task"
         android:paddingStart="24dp"
-        android:paddingEnd="24dp"
         android:paddingTop="8dp"
+        android:paddingEnd="24dp"
         android:paddingBottom="8dp"
-        style="@style/TextButton"
-        app:layout_constraintTop_toBottomOf="@+id/txtStatusTask"
+        android:layout_marginBottom="48dp"
+        android:text="@string/editTask"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtStatusTask" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

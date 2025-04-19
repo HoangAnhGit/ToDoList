@@ -36,4 +36,7 @@ public class TaskRepository {
     public void update(Task task) {
         Executors.newSingleThreadExecutor().execute(() -> taskDao.updateTask(task));
     }
+    public void deleteAll() {
+        Executors.newSingleThreadExecutor().execute(taskDao::deleteAll);
+    }
 }

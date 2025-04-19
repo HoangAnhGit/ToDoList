@@ -13,6 +13,7 @@ roomRxjava3 = "2.7.0"
 storage = "1.5.0"
 navigationFragment = "2.6.0"
 navigationUi = "2.6.0"
+swipeRevealLayout = "1.4.1"
 
 [libraries]
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
@@ -29,6 +30,7 @@ room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomRxjav
 storage = { group = "androidx.test.services", name = "storage", version.ref = "storage" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+swipe-reveal-layout = { module = "com.chauthai.swipereveallayout:swipe-reveal-layout", version.ref = "swipeRevealLayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -43,7 +43,7 @@
             android:name=".View.ActivityView.NewTag"
             android:exported="false" />
         <activity
-            android:name=".View.ActivityView.Tag"
+            android:name=".View.ActivityView.TagActivity"
             android:exported="false" />
         <activity
             android:name=".View.ActivityView.EditTask"

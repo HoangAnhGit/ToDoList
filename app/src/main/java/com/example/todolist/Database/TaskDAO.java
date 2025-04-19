@@ -40,4 +40,7 @@ public interface TaskDAO {
     @Query("SELECT * FROM task")
     LiveData<List<TaskWithTag>> getTasksWithTag();
 
+    @Query("DELETE FROM task")
+    void deleteAll();
+
 }

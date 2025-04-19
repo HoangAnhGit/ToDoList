@@ -2,6 +2,10 @@ package com.example.todolist.Model;
 
 
 
+import android.content.Context;
+import android.graphics.Color;
+
+import androidx.core.content.ContextCompat;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -10,6 +14,7 @@ import androidx.room.TypeConverters;
 import com.example.todolist.Model.Enum.ReminderSetting;
 import com.example.todolist.Model.Enum.RepeatFrequency;
 import com.example.todolist.Model.Enum.TaskStatus;
+import com.example.todolist.R;
 import com.example.todolist.Utils.LocalDateConverter;
 import com.example.todolist.Utils.LocalTimeConverter;
 
@@ -23,8 +28,6 @@ public class Task {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-
-
     private String title;
     private String description;
     private String colorCode;
@@ -39,6 +42,24 @@ public class Task {
 
     @ColumnInfo(name = "tag_id")
     private int idTag ;
+
+
+    public Task() {
+    }
+
+    public Task(Context context) {
+
+        this.title = context.getString(R.string.newTask);
+        this.description = "";
+        this.idIcon = R.drawable.graduation;
+        this.colorCode = String.valueOf(ContextCompat.getColor(context, R.color.item_blue));
+
+        this.dueDate = LocalDate.now();
+        this.dueTime = null;
+        this.reminderSetting = ReminderSetting.NO_REMINDER;
+        this.repeatFrequency = RepeatFrequency.OFF;
+        this.idTag = 0 ;
+    }
 
 
     public int getId() {

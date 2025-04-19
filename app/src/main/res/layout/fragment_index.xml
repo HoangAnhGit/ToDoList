@@ -67,91 +67,33 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_task"
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar">
 
-        <TextView
-            android:id="@+id/filterAll"
-            style="@style/Base.TextAppearance.AppCompat.Caption."
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_filter"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_filter"
-            android:gravity="center"
-            android:paddingStart="24dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="24dp"
-            android:paddingBottom="8dp"
-            android:text="@string/filterAll"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/filterToday"
-            style="@style/Base.TextAppearance.AppCompat.Caption."
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_filter"
-            android:gravity="center"
-            android:paddingStart="24dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="24dp"
-            android:paddingBottom="8dp"
-            android:text="@string/filterToday"
-            app:layout_constraintStart_toEndOf="@+id/filterAll"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/filterWeek"
-            style="@style/Base.TextAppearance.AppCompat.Caption."
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_filter"
-            android:gravity="center"
-            android:paddingStart="24dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="24dp"
-            android:paddingBottom="8dp"
-            android:text="@string/filterWeek"
-            app:layout_constraintStart_toEndOf="@+id/filterToday"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/filterMoth"
-            style="@style/Base.TextAppearance.AppCompat.Caption."
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_filter"
-            android:gravity="center"
-            android:paddingStart="24dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="24dp"
-            android:paddingBottom="8dp"
-            android:text="@string/filterMoth"
-            app:layout_constraintStart_toEndOf="@+id/filterWeek"
-            app:layout_constraintTop_toTopOf="parent" />
+        </androidx.recyclerview.widget.RecyclerView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingBottom="250dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filterToday" />
+            app:layout_constraintTop_toBottomOf="@+id/rcv_filter" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

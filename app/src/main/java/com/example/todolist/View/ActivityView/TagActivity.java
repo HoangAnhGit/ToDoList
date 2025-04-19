@@ -2,6 +2,7 @@ package com.example.todolist.View.ActivityView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -15,12 +16,16 @@ import com.example.todolist.ViewModel.TagViewModel;
 import com.example.todolist.ViewModel.TagViewModelFactory;
 import com.example.todolist.databinding.ActivityTagBinding;
 
+import java.io.Serializable;
+
 public class TagActivity extends AppCompatActivity {
 
     private ActivityTagBinding binding;
     private TagAdapter tagAdapter;
 
     private Tag tagSelected;
+    private Tag tagSelecting;
+    private   String colorCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +39,22 @@ public class TagActivity extends AppCompatActivity {
         TagViewModel tagViewModel = new ViewModelProvider(this,factory).get(TagViewModel.class);
 
         tagAdapter = new TagAdapter();
+
+        colorCode = getIntent().getStringExtra("Value_Color");
+
+        Bundle tagSelect = getIntent().getExtras();
+        if (tagSelect != null) {
+            Serializable tag = tagSelect.getSerializable("TAG_SELECT");
+            tagSelecting = (Tag) tag;
+        }
+
+
         binding.rcvTag.setLayoutManager(new LinearLayoutManager(this));
         binding.rcvTag.setAdapter(tagAdapter);
 
 
         tagViewModel.getAllTags().observe(this, tags -> {
-            tagAdapter.setListTag(tags,tag -> {
+            tagAdapter.setListTag(tags,tagSelecting,colorCode,tag -> {
                 tagSelected =tag;
             });
         });

@@ -12,9 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.todolist.Model.Enum.TaskStatus;
 import com.example.todolist.Model.Task;
+import com.example.todolist.Utils.CoverString;
+import com.example.todolist.View.rcv.FilterAdapter;
 import com.example.todolist.View.rcv.TaskAdapter;
 import com.example.todolist.ViewModel.TaskViewModel;
 import com.example.todolist.databinding.DialogDeltailTaskBinding;
@@ -22,6 +25,8 @@ import com.example.todolist.databinding.FragmentIndexBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -35,20 +40,27 @@ public class FragmentIndex extends Fragment {
         binding = FragmentIndexBinding.inflate(inflater,container,false);
         View mView = binding.getRoot();
 
+        initFilter();
+        initListTask();
+
+
+        return mView;
+    }
+
+    private void initListTask(){
 
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
         TaskAdapter taskAdapter = new TaskAdapter();
 
-        binding.rcvTask.setLayoutManager(new LinearLayoutManager(mView.getContext()));
+        binding.rcvTask.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rcvTask.setAdapter(taskAdapter);
 
-        taskViewModel.deleteAll();
+        //taskViewModel.deleteAll();
 
         taskViewModel.getAllTasks().observe(getViewLifecycleOwner(), tasks -> {
-            taskAdapter.setAdapter(mView.getContext(),tasks,taskViewModel, this::openDetailDialog);
+            taskAdapter.setAdapter(getContext(),tasks,taskViewModel, this::openDetailDialog);
         });
-        return mView;
     }
 
     private void openDetailDialog(Task task) {
@@ -71,7 +83,10 @@ public class FragmentIndex extends Fragment {
         );
         binding.txtDes.setText(task.getDescription());
         binding.iconTask.setImageResource(task.getIdIcon());
-        binding.txtStatusTask.setText(task.getStatus().name());
+
+        CoverString coverString = new CoverString();
+        String toStringStatus = coverString.RepeatToString(task.getRepeatFrequency(),task.getDueDate())+" , "+coverString.Reminder(task.getReminderSetting(),task.getDueTime());
+        binding.txtStatusTask.setText(toStringStatus);
 
 
         boolean isCompleted = task.getStatus().equals(TaskStatus.COMPLETED);
@@ -85,6 +100,19 @@ public class FragmentIndex extends Fragment {
         });
 
         dialog.show();
+    }
+
+    private void initFilter(){
+        List<String> filterList = Arrays.asList("All", "Today", "Week", "Month");
+
+        FilterAdapter adapter = new FilterAdapter();
+        adapter.setData(getContext(),filterList,(filter, selectedPosition) -> {
+
+        });
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        binding.rcvFilter.setLayoutManager(layoutManager);
+        binding.rcvFilter.setAdapter(adapter);
     }
 
 }

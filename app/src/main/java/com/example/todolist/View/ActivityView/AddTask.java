@@ -26,6 +26,7 @@ import com.example.todolist.Model.Enum.RepeatFrequency;
 import com.example.todolist.Model.Tag;
 import com.example.todolist.Model.Task;
 import com.example.todolist.R;
+import com.example.todolist.Utils.CustomToast;
 import com.example.todolist.Utils.DateUtils;
 import com.example.todolist.Utils.TimeUtils;
 import com.example.todolist.View.rcv.ColorAdapter;
@@ -71,6 +72,7 @@ public class AddTask extends AppCompatActivity {
                         String valueReturn = o.getData().getStringExtra("VALUE_DATE");
                         binding.selectedDateText.setText(valueReturn);
                     }else if (o.getResultCode() == KEY_TAG_RETURN && o.getData() != null) {
+
                         Bundle bundle = o.getData().getExtras();
                         if (bundle != null && bundle.containsKey("tag")) {
                              tagSelected = (Tag) bundle.getSerializable("tag");
@@ -111,6 +113,9 @@ public class AddTask extends AppCompatActivity {
         binding.btnCreate.setOnClickListener(v -> {
             String title = Objects.requireNonNull(binding.titleEdittext.getText()).toString().trim();
             String des = Objects.requireNonNull(binding.descriptionEdittext.getText()).toString().trim();
+            if(newTask.getDueTime()==null){
+                newTask.setRepeatFrequency(RepeatFrequency.OFF);
+            }
             if (!title.isEmpty()) {
                 newTask.setTitle(title);
             }
@@ -119,8 +124,8 @@ public class AddTask extends AppCompatActivity {
                 newTask.setDescription(des);
             }
             taskViewModel.insert(newTask);
+            CustomToast.showCustomToast(this,"Create Task Complete");
 
-            Toast.makeText(this,"Create Task Complete",Toast.LENGTH_LONG).show();
             finish();
         });
         binding.pickDate.setOnClickListener(v -> setupPickDateButton());
@@ -131,26 +136,16 @@ public class AddTask extends AppCompatActivity {
         binding.layoutTag.setOnClickListener(v -> {
             Intent tagIntent = new Intent(this, TagActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("TAG_SELECT",tagSelected);
+            tagIntent.putExtra("Value_Color",newTask.getColorCode());
+
+            Tag tagSelecting = new TagViewModel(getApplication()).getTagByID(newTask.getIdTag());
+            bundle.putSerializable("TAG_SELECT",tagSelecting);
             tagIntent.putExtras(bundle);
             intentActivityResultLauncher.launch(tagIntent);
         });
     }
 
     private void initData(){
-
-//        if (newTask.getDueDate() != null) {
-//            binding.selectedDateText.setText(DateUtils.getDayLabel(newTask.getDueDate()));
-//        }
-//        if (newTask.getDueTime() != null) {
-//            binding.selectedTimeText.setText(TimeUtils.toLabel(newTask.getDueTime()));
-//        }
-//        if (newTask.getRepeatFrequency() != null) {
-//            binding.selectedRepeatText.setText(newTask.getRepeatFrequency().toString());
-//        }
-//        if (newTask.getReminderSetting() != null) {
-//            updateReminderTextView();
-//        }
 
     }
     private void pickTime() {

@@ -8,7 +8,7 @@ import com.example.todolist.Database.AppDatabase;
 import com.example.todolist.Database.TagDAO;
 import com.example.todolist.Model.Tag;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -27,6 +27,9 @@ public class TagRepository {
     }
     public LiveData<List<Tag>> getAllTags() {
         return tagDao.getAllTags();
+    }
+    public List<String> getAllTitleTagsList() {
+        return tagDao.getAllTitleTagsList();
     }
 
     public void insert(Tag tag) {

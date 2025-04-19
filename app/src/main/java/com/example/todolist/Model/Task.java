@@ -5,6 +5,7 @@ package com.example.todolist.Model;
 import android.content.Context;
 import android.graphics.Color;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -58,7 +59,7 @@ public class Task {
         this.dueTime = null;
         this.reminderSetting = ReminderSetting.NO_REMINDER;
         this.repeatFrequency = RepeatFrequency.OFF;
-        this.idTag = 0 ;
+        this.idTag = 6 ;
     }
 
 
@@ -149,5 +150,23 @@ public class Task {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", colorCode='" + colorCode + '\'' +
+                ", idIcon=" + idIcon +
+                ", dueDate=" + dueDate +
+                ", dueTime=" + dueTime +
+                ", repeatFrequency=" + repeatFrequency +
+                ", reminderSetting=" + reminderSetting +
+                ", status=" + status +
+                ", idTag=" + idTag +
+                '}';
     }
 }

@@ -42,6 +42,10 @@ public class TagViewModel extends AndroidViewModel {
         return allTags;
     }
 
+    public List<String> getAllTitleTagsList() {
+        return repository.getAllTitleTagsList();
+    }
+
     public void insert(Tag tag) {
         repository.insert(tag);
     }

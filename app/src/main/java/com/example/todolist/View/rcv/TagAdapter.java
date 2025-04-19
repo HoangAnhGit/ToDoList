@@ -1,13 +1,15 @@
 package com.example.todolist.View.rcv;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todolist.Model.Tag;
-import com.example.todolist.View.ActivityView.TagActivity;
+import com.example.todolist.R;
 import com.example.todolist.databinding.ItemTagBinding;
 
 import java.util.List;
@@ -16,13 +18,17 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagViewHolder> {
 
     private  List<Tag> mList ;
     private itemSelected onClick;
+    private Tag selectedTag;
+    private String selectedColorCode;
 
     public interface itemSelected{
         void OnClickItem(Tag tag);
     }
 
-    public void setListTag(  List<Tag> mList, itemSelected onClick){
+    public void setListTag(  List<Tag> mList,Tag selectedTag, String selectedColorCode,itemSelected onClick){
         this.mList = mList;
+        this.selectedTag=selectedTag;
+        this.selectedColorCode=selectedColorCode;
         this.onClick= onClick;
         notifyDataSetChanged();
     }
@@ -37,9 +43,23 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TagViewHolder holder, int position) {
         Tag tag = mList.get(position);
-
-        holder.binding.item.setOnClickListener(view -> {onClick.OnClickItem(tag);});
         holder.binding.title.setText(tag.getTitle());
+
+        boolean isSelected = selectedTag != null && tag.getUid() == selectedTag.getUid();
+
+        if (isSelected) {
+            holder.binding.item.setBackgroundColor(Integer.parseInt(selectedColorCode));
+            holder.binding.Picked.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.item.setBackgroundResource(R.color.white);
+            holder.binding.Picked.setVisibility(View.GONE);
+        }
+
+        holder.binding.getRoot().setOnClickListener(v -> {
+            selectedTag = tag;
+            onClick.OnClickItem(tag);
+            notifyDataSetChanged();
+        });
     }
 
     @Override

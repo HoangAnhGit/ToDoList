@@ -112,11 +112,11 @@
     <string name="app_widget_description">This is an app widget description</string>
 
     <array name="default_tag">
-        <item>No tag</item>
         <item>Clean room</item>
         <item>Learn code</item>
         <item>Workout</item>
         <item>Relationship</item>
         <item>Sleep</item>
+        <item>No tag</item>
     </array>
 </resources>

@@ -25,8 +25,11 @@ public interface TagDAO {
     @Query("DELETE FROM tag")
     void deleteAllTags();
 
-    @Query("SELECT * FROM tag ORDER BY title ASC")
+    @Query("SELECT * FROM tag ")
     LiveData<List<Tag>> getAllTags();
+
+    @Query("SELECT title FROM tag ")
+    List<String> getAllTitleTagsList();
 
     @Query("SELECT * FROM tag WHERE uid = :id")
     Tag getTagById(int id);

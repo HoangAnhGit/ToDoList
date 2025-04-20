@@ -67,7 +67,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagViewHolder> {
         return mList != null ? mList.size() : 0;
     }
 
-    public class TagViewHolder extends RecyclerView.ViewHolder {
+    public static class TagViewHolder extends RecyclerView.ViewHolder {
         ItemTagBinding binding;
         public TagViewHolder(@NonNull ItemTagBinding binding) {
             super(binding.getRoot());

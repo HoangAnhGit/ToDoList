@@ -8,6 +8,7 @@ import com.example.todolist.Model.Enum.TaskStatus;
 import com.example.todolist.Model.Task;
 import com.example.todolist.Model.TaskWithTag;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -40,7 +41,18 @@ public interface TaskDAO {
     @Query("SELECT * FROM task")
     LiveData<List<TaskWithTag>> getTasksWithTag();
 
+    @Query("SELECT * FROM task WHERE tag_id = :tagId")
+    LiveData<List<Task>> getTasksByTagId(int tagId);
+
+
     @Query("DELETE FROM task")
     void deleteAll();
+
+    // Các filter dùng trong Repository
+    @Query("SELECT * FROM task WHERE dueDate = :date")
+    LiveData<List<Task>> getTasksForDate(LocalDate date);
+
+    @Query("SELECT * FROM task WHERE dueDate BETWEEN :start AND :end")
+    LiveData<List<Task>> getTasksBetweenDates(LocalDate start, LocalDate end);
 
 }

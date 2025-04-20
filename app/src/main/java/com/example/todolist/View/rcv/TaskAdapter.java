@@ -27,6 +27,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
     private TaskViewModel taskViewModel;
 
 
+    public void submit( List<Task> mList){
+            this.mList=mList;
+            notifyDataSetChanged();
+    }
 
     public void setAdapter( Context context,List<Task> mList,TaskViewModel taskViewModel, onClickItem taskItemEventHandler){
         this.context = context;

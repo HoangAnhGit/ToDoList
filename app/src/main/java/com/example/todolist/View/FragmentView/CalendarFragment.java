@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.todolist.Model.Enum.TaskStatus;
+import com.example.todolist.Model.Tag;
 import com.example.todolist.Model.Task;
 import com.example.todolist.R;
 import com.example.todolist.Utils.CoverString;
@@ -36,36 +37,25 @@ public class CalendarFragment extends Fragment {
 
     private FragmentCalendarBinding binding;
     private TaskViewModel taskViewModel;
+    private TaskAdapter taskAdapter;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentCalendarBinding.inflate(inflater,container,false);
+        binding = FragmentCalendarBinding.inflate(inflater, container, false);
         View mView = binding.getRoot();
 
+        taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+        taskAdapter = new TaskAdapter();
 
-        initListTask();
         initFilter();
 
 
         return mView;
     }
-    private void initListTask(){
 
-        taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
-        TaskAdapter taskAdapter = new TaskAdapter();
-
-        binding.rcvTask.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rcvTask.setAdapter(taskAdapter);
-
-        //taskViewModel.deleteAll();
-
-        taskViewModel.getAllTasks().observe(getViewLifecycleOwner(), tasks -> {
-            taskAdapter.setAdapter(getContext(),tasks,taskViewModel, this::openDetailDialog);
-        });
-    }
 
     private void openDetailDialog(Task task) {
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
@@ -89,7 +79,7 @@ public class CalendarFragment extends Fragment {
         binding.iconTask.setImageResource(task.getIdIcon());
 
         CoverString coverString = new CoverString();
-        String toStringStatus = coverString.RepeatToString(task.getRepeatFrequency(),task.getDueDate())+" , "+coverString.Reminder(task.getReminderSetting(),task.getDueTime());
+        String toStringStatus = coverString.RepeatToString(task.getRepeatFrequency(), task.getDueDate()) + " , " + coverString.Reminder(task.getReminderSetting(), task.getDueTime());
         binding.txtStatusTask.setText(toStringStatus);
 
 
@@ -106,19 +96,34 @@ public class CalendarFragment extends Fragment {
         dialog.show();
     }
 
-    private void initFilter(){
-        TagViewModel tagViewModel =new  ViewModelProvider(this).get(TagViewModel.class);
-        List<String> filterList = new ArrayList<>();
-        filterList.add("All");
-        filterList.addAll(tagViewModel.getAllTitleTagsList());
+    private void initFilter() {
+        TagViewModel tagViewModel = new ViewModelProvider(this).get(TagViewModel.class);
 
-        FilterAdapter adapter = new FilterAdapter();
-        adapter.setData(getContext(),filterList,(filter, selectedPosition) -> {
+        tagViewModel.getAllTags().observe(getViewLifecycleOwner(), tags -> {
+            List<String> filterList = new ArrayList<>();
+            filterList.add("All");
 
+            for (Tag tag : tags) {
+                filterList.add(tag.getTitle());
+            }
+
+            //rcv filter
+            FilterAdapter adapter = new FilterAdapter();
+            adapter.setData(getContext(), filterList, (filter, selectedPosition) -> {
+                taskViewModel.filterTasksByTagId(selectedPosition);
+            });
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+            binding.filterTag.setLayoutManager(layoutManager);
+            binding.filterTag.setAdapter(adapter);
+
+
+            //rcv task
+            binding.rcvTask.setLayoutManager(new LinearLayoutManager(getContext()));
+            binding.rcvTask.setAdapter(taskAdapter);
+            taskViewModel.getFilteredTasks().observe(getViewLifecycleOwner(), tasks -> {
+                taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog);
+            });
         });
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        binding.filterTag.setLayoutManager(layoutManager);
-        binding.filterTag.setAdapter(adapter);
     }
 }

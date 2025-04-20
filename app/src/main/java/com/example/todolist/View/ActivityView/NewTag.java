@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.todolist.Model.Tag;
+import com.example.todolist.Utils.CustomToast;
 import com.example.todolist.ViewModel.TagViewModel;
 import com.example.todolist.databinding.ActivityNewTagBinding;
 
@@ -31,7 +32,7 @@ public class NewTag extends AppCompatActivity {
             String titleTask = binding.titleTag.getText().toString();
             if(!titleTask.isEmpty()){
                 tagViewModel.insert(new Tag(titleTask));
-                Toast.makeText(this, "Create tag complete", Toast.LENGTH_SHORT).show();
+                CustomToast.showCustomToast(this,"Create Tag Complete");
             }
 
             finish();

@@ -1,10 +1,5 @@
 package com.example.todolist.Model;
-
-
-
 import android.content.Context;
-import android.graphics.Color;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.room.ColumnInfo;

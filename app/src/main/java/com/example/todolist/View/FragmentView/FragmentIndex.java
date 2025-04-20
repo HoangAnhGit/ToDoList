@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.todolist.Model.Enum.TaskStatus;
+import com.example.todolist.Model.Enum.TimeFilter;
 import com.example.todolist.Model.Task;
 import com.example.todolist.Utils.CoverString;
 import com.example.todolist.View.rcv.FilterAdapter;
@@ -34,34 +35,21 @@ public class FragmentIndex extends Fragment {
 
     private FragmentIndexBinding binding;
     private TaskViewModel taskViewModel;
+    private   TaskAdapter taskAdapter;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentIndexBinding.inflate(inflater,container,false);
         View mView = binding.getRoot();
+        taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+        taskAdapter = new TaskAdapter();
+
 
         initFilter();
-        initListTask();
-
 
         return mView;
     }
 
-    private void initListTask(){
-
-        taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-
-        TaskAdapter taskAdapter = new TaskAdapter();
-
-        binding.rcvTask.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rcvTask.setAdapter(taskAdapter);
-
-        //taskViewModel.deleteAll();
-
-        taskViewModel.getAllTasks().observe(getViewLifecycleOwner(), tasks -> {
-            taskAdapter.setAdapter(getContext(),tasks,taskViewModel, this::openDetailDialog);
-        });
-    }
 
     private void openDetailDialog(Task task) {
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
@@ -103,16 +91,34 @@ public class FragmentIndex extends Fragment {
     }
 
     private void initFilter(){
-        List<String> filterList = Arrays.asList("All", "Today", "Week", "Month");
+            List<String> filterList =Arrays.asList(
+                    TimeFilter.TODAY.toString(),
+                    TimeFilter.ALL.toString(),
+                    TimeFilter.WEEK.toString(),
+                    TimeFilter.MONTH.toString()
+            );
 
         FilterAdapter adapter = new FilterAdapter();
         adapter.setData(getContext(),filterList,(filter, selectedPosition) -> {
-
+            taskViewModel.setFilter(filter);
         });
 
+        //taskViewModel.deleteAll();
+
+        //khởi động rcv của task
+        binding.rcvTask.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rcvTask.setAdapter(taskAdapter);
+        taskViewModel.getFilteredTaskIndex().observe(getViewLifecycleOwner(), tasks -> {
+            taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog);
+        });
+
+        //Khởi động rcv của filter
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         binding.rcvFilter.setLayoutManager(layoutManager);
         binding.rcvFilter.setAdapter(adapter);
+
+
+
     }
 
 }

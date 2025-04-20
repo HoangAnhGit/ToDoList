@@ -1,7 +1,5 @@
 package com.example.todolist.Utils;
 
-import android.widget.Switch;
-
 import com.example.todolist.Model.Enum.ReminderSetting;
 import com.example.todolist.Model.Enum.RepeatFrequency;
 

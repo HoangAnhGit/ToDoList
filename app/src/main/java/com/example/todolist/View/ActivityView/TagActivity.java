@@ -2,7 +2,6 @@ package com.example.todolist.View.ActivityView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -53,11 +52,9 @@ public class TagActivity extends AppCompatActivity {
         binding.rcvTag.setAdapter(tagAdapter);
 
 
-        tagViewModel.getAllTags().observe(this, tags -> {
-            tagAdapter.setListTag(tags,tagSelecting,colorCode,tag -> {
-                tagSelected =tag;
-            });
-        });
+        tagViewModel.getAllTags().observe(this, tags -> tagAdapter.setListTag(tags,tagSelecting,colorCode, tag -> {
+            tagSelected =tag;
+        }));
 
         binding.btnBack.setOnClickListener(view -> {
             int KEY_TAG_RETURN = 98;

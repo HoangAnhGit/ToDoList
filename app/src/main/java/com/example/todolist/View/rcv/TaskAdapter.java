@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,27 +16,27 @@ import com.example.todolist.ViewModel.TaskViewModel;
 import com.example.todolist.databinding.ItemTaskBinding;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> implements Filterable {
 
     Context context;
     private  List<Task> mList;
+    private  List<Task> mListOld;
     private onClickItem taskItemEventHandler;
+
+
     public interface  onClickItem{
         void onClickTask(Task task);
     }
     private TaskViewModel taskViewModel;
 
 
-    public void submit( List<Task> mList){
-            this.mList=mList;
-            notifyDataSetChanged();
-    }
-
     public void setAdapter( Context context,List<Task> mList,TaskViewModel taskViewModel, onClickItem taskItemEventHandler){
         this.context = context;
         this.mList = mList;
+        this.mListOld=mList;
         this.taskViewModel = taskViewModel;
         this.taskItemEventHandler = taskItemEventHandler;
         notifyDataSetChanged();
@@ -100,6 +102,39 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder>{
             this.binding = binding;
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strSearch = charSequence.toString();
+                List<Task> filteredList;
+
+                if (strSearch.isEmpty()) {
+                    filteredList = new ArrayList<>(mListOld);
+                } else {
+                    filteredList = new ArrayList<>();
+                    for (Task task : mListOld) {
+                        if (task.getTitle().toLowerCase().contains(strSearch.toLowerCase())) {
+                            filteredList.add(task);
+                        }
+                    }
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mList = (List<Task>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 
 
 }

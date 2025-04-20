@@ -4,17 +4,13 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.example.todolist.Model.Enum.TimeFilter;
 import com.example.todolist.Model.Task;
 import com.example.todolist.Repository.TaskRepository;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 
@@ -23,7 +19,7 @@ public class TaskViewModel extends AndroidViewModel {
     private final TaskRepository repository;
     private final LiveData<List<Task>> allTasks;
 
-    private final MutableLiveData<Integer> selectedTagId = new MutableLiveData<>();
+    private final MutableLiveData<Integer> selectedTagId = new MutableLiveData<>(0);
     private final LiveData<List<Task>> filteredTasks;
 
     private final MutableLiveData<String> currentFilter = new MutableLiveData<>("TODAY");

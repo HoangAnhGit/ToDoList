@@ -1,5 +1,6 @@
 package com.example.todolist.View.FragmentView;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -9,9 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.example.todolist.Model.Enum.TaskStatus;
@@ -46,6 +50,7 @@ public class FragmentIndex extends Fragment {
 
 
         initFilter();
+        initSearch();
 
         return mView;
     }
@@ -117,8 +122,44 @@ public class FragmentIndex extends Fragment {
         binding.rcvFilter.setLayoutManager(layoutManager);
         binding.rcvFilter.setAdapter(adapter);
 
+    }
 
+    private void initSearch(){
+            binding.searchBar.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    taskAdapter.getFilter().filter(s.toString());
+                }
 
+                @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+                @Override public void afterTextChanged(Editable s) {}
+            });
+
+        binding.iconSearch.setOnClickListener(v -> {
+            binding.searchBar.requestFocus();
+            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.showSoftInput(binding.searchBar, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+
+        binding.searchBar.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                binding.iconCancel.setVisibility(View.VISIBLE);
+            } else {
+                binding.iconCancel.setVisibility(View.GONE);
+            }
+        });
+
+        binding.iconCancel.setOnClickListener(v -> {
+            binding.searchBar.setText("");
+            binding.searchBar.clearFocus();
+
+            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(binding.searchBar.getWindowToken(), 0);
+            }
+        });
     }
 
 }

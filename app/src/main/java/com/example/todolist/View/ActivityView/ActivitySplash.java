@@ -19,14 +19,11 @@ public class ActivitySplash extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(ActivitySplash.this, MainActivity.class);
-                startActivity(intent);
-                finish();;
-            }
-        },3000);
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(ActivitySplash.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        },2000);
 
     }
 }

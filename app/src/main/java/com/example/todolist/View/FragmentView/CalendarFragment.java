@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +16,6 @@ import android.view.ViewGroup;
 import com.example.todolist.Model.Enum.TaskStatus;
 import com.example.todolist.Model.Tag;
 import com.example.todolist.Model.Task;
-import com.example.todolist.R;
 import com.example.todolist.Utils.CoverString;
 import com.example.todolist.View.rcv.FilterAdapter;
 import com.example.todolist.View.rcv.TaskAdapter;
@@ -27,7 +27,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,7 +40,7 @@ public class CalendarFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentCalendarBinding.inflate(inflater, container, false);
         View mView = binding.getRoot();
@@ -88,10 +87,7 @@ public class CalendarFragment extends Fragment {
         binding.iconNotComplete.setVisibility(isCompleted ? View.GONE : View.VISIBLE);
 
 
-        binding.btnEdit.setOnClickListener(v -> {
-
-            dialog.dismiss();
-        });
+        binding.btnEdit.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }
@@ -109,9 +105,7 @@ public class CalendarFragment extends Fragment {
 
             //rcv filter
             FilterAdapter adapter = new FilterAdapter();
-            adapter.setData(getContext(), filterList, (filter, selectedPosition) -> {
-                taskViewModel.filterTasksByTagId(selectedPosition);
-            });
+            adapter.setData(getContext(), filterList, (filter, selectedPosition) -> taskViewModel.filterTasksByTagId(selectedPosition));
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
             binding.filterTag.setLayoutManager(layoutManager);
@@ -121,9 +115,7 @@ public class CalendarFragment extends Fragment {
             //rcv task
             binding.rcvTask.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.rcvTask.setAdapter(taskAdapter);
-            taskViewModel.getFilteredTasks().observe(getViewLifecycleOwner(), tasks -> {
-                taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog);
-            });
+            taskViewModel.getFilteredTasks().observe(getViewLifecycleOwner(), tasks -> taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog));
         });
     }
 }

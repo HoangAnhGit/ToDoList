@@ -14,6 +14,7 @@ public class TagViewModelFactory implements ViewModelProvider.Factory {
         this.application = application;
     }
 
+    @androidx.annotation.NonNull
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {

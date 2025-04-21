@@ -7,15 +7,18 @@
     android:background="@drawable/bg_toast">
 
     <ImageView
+        android:id="@+id/icToast"
         android:layout_width="16dp"
         android:layout_height="16dp"
+        android:contentDescription="@string/txtImg"
         android:src="@mipmap/hand"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvToast"
         android:layout_marginStart="8dp"
-        style="@style/Base.TextAppearance.AppCompat.Caption.Bold"
+        style="@style/Base.TextAppearance.AppCompat.Body2.Bold"
         android:text="@string/detailReminder"/>
 
 </LinearLayout>

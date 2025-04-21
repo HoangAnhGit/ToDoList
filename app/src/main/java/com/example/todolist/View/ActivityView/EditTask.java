@@ -2,6 +2,7 @@ package com.example.todolist.View.ActivityView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.todolist.Model.Enum.ReminderSetting;
 import com.example.todolist.Model.Enum.RepeatFrequency;
 import com.example.todolist.Model.Tag;
 import com.example.todolist.Model.Task;
 import com.example.todolist.R;
+import com.example.todolist.Utils.CoverString;
 import com.example.todolist.Utils.CustomToast;
 import com.example.todolist.Utils.DateUtils;
 import com.example.todolist.Utils.TimeUtils;
@@ -30,6 +33,9 @@ import com.example.todolist.View.rcv.ImageAdapter;
 import com.example.todolist.ViewModel.TagViewModel;
 import com.example.todolist.ViewModel.TaskViewModel;
 import com.example.todolist.databinding.ActivityEditTaskBinding;
+import com.example.todolist.databinding.DialogReminderBinding;
+import com.example.todolist.databinding.DialogRepeatBinding;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -42,8 +48,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class EditTask extends AppCompatActivity {
@@ -113,14 +121,16 @@ public class EditTask extends AppCompatActivity {
     private void initData(Task task) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
 
+        CoverString coverString = new CoverString();
+
         binding.pickIcon.setImageResource(task.getIdIcon());
         binding.titleEdittext.setText(task.getTitle());
         binding.main.setBackgroundColor(Integer.parseInt(task.getColorCode()));
         binding.descriptionEdittext.setText(task.getDescription());
         binding.selectedDateText.setText(DateUtils.getDayLabel(task.getDueDate()));
-        binding.selectedRepeatText.setText(task.getRepeatFrequency().toString());
+        binding.selectedRepeatText.setText(coverString.RepeatToString(task.getRepeatFrequency(), task.getDueDate()));
         binding.selectedTimeText.setText(task.getDueTime() != null ? task.getDueTime().format(formatter) : "Any time");
-        binding.selectedReminderText.setText(task.getReminderSetting().toString());
+        binding.selectedReminderText.setText(coverString.Reminder(task.getReminderSetting(), task.getDueTime()));
         tagSelected = tagViewModel.getTagByID(task.getIdTag());
         binding.selectedTagText.setText(tagSelected.getTitle());
     }
@@ -150,9 +160,8 @@ public class EditTask extends AppCompatActivity {
         binding.pickDate.setOnClickListener(v -> setupPickDateButton());
         binding.layoutTime.setOnClickListener(v -> pickTime());
 
-        // chưa set được giá trị default
-//        binding.layoutRepeat.setOnClickListener(v -> showRepeatDialog());
-//        binding.layoutReminder.setOnClickListener(v -> showReminderDialog());
+        binding.layoutRepeat.setOnClickListener(v -> showRepeatDialog());
+       binding.layoutReminder.setOnClickListener(v -> showReminderDialog());
         binding.pickIcon.setOnClickListener(v -> pickIcon());
         binding.layoutTag.setOnClickListener(v -> {
             Intent tagIntent = new Intent(this, TagActivity.class);
@@ -164,6 +173,103 @@ public class EditTask extends AppCompatActivity {
             intentActivityResultLauncher.launch(tagIntent);
         });
     }
+
+    private void showRepeatDialog() {
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+        DialogRepeatBinding bindingRepeat = DialogRepeatBinding.inflate(getLayoutInflater());
+        dialog.setContentView(bindingRepeat.getRoot());
+
+        LocalDate taskDate = taskEdit.getDueDate();
+        if (taskDate == null) {
+            taskDate = LocalDate.now();
+        }
+
+        String dayOfWeek = taskDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+        int dayOfMonth = taskDate.getDayOfMonth();
+        String dayWithSuffix = dayOfMonth + getDaySuffix(dayOfMonth);
+
+
+        bindingRepeat.weekly.setText("Weekly (" + dayOfWeek + ")");
+        bindingRepeat.monthly.setText("Monthly (On " + dayWithSuffix + ")");
+
+
+        bindingRepeat.repeatOptions.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.noRepeat) {
+                binding.selectedRepeatText.setText(bindingRepeat.noRepeat.getText().toString());
+                bindingRepeat.noRepeat.setChecked(true);
+                taskEdit.setRepeatFrequency(RepeatFrequency.OFF);
+            } else if (checkedId == R.id.daily) {
+                binding.selectedRepeatText.setText(bindingRepeat.daily.getText().toString());
+                bindingRepeat.daily.setChecked(true);
+                taskEdit.setRepeatFrequency(RepeatFrequency.DAILY);
+            } else if (checkedId == R.id.weekly) {
+                binding.selectedRepeatText.setText(bindingRepeat.weekly.getText().toString());
+                bindingRepeat.weekly.setChecked(true);
+                taskEdit.setRepeatFrequency(RepeatFrequency.WEEKLY);
+            } else if (checkedId == R.id.monthly) {
+                binding.selectedRepeatText.setText(bindingRepeat.monthly.getText().toString());
+                bindingRepeat.monthly.setChecked(true);
+                taskEdit.setRepeatFrequency(RepeatFrequency.MONTHLY);
+            }
+            new Handler().postDelayed(dialog::dismiss, 400);
+        });
+
+        dialog.show();
+    }
+
+    private void showReminderDialog() {
+        BottomSheetDialog dialog = new BottomSheetDialog(this);
+        DialogReminderBinding bindingReminder = DialogReminderBinding.inflate(getLayoutInflater());
+        dialog.setContentView(bindingReminder.getRoot());
+
+        bindingReminder.reminderOptions.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.noReminder) {
+                taskEdit.setReminderSetting(ReminderSetting.NO_REMINDER);
+            } else if (checkedId == R.id.onEvent) {
+                taskEdit.setReminderSetting(ReminderSetting.AT_TIME_OF_DUE);
+            } else if (checkedId == R.id.fifteenMinutesBefore) {
+                taskEdit.setReminderSetting(ReminderSetting.FIFTEEN_MINUTES_BEFORE);
+            } else if (checkedId == R.id.oneHourBefore) {
+                taskEdit.setReminderSetting(ReminderSetting.ONE_HOUR_BEFORE);
+            }
+
+            updateReminderTextView();
+
+            new Handler().postDelayed(dialog::dismiss, 400);
+        });
+
+        dialog.show();
+    }
+
+    private void updateReminderTextView() {
+        String reminderText = "No reminder";
+
+        if (taskEdit.getReminderSetting() == ReminderSetting.FIFTEEN_MINUTES_BEFORE) {
+            reminderText = "Before event 15 minutes";
+        } else if (taskEdit.getReminderSetting() == ReminderSetting.ONE_HOUR_BEFORE) {
+            reminderText = "Before event 1 hour";
+        }else if (taskEdit.getReminderSetting() == ReminderSetting.AT_TIME_OF_DUE) {
+            reminderText = "At time of event";
+        }
+
+        binding.selectedReminderText.setText(reminderText);
+    }
+
+
+    private String getDaySuffix(int day) {
+        if (day >= 11 && day <= 13) return "th";
+        switch (day % 10) {
+            case 1:
+                return "st";
+            case 2:
+                return "nd";
+            case 3:
+                return "rd";
+            default:
+                return "th";
+        }
+    }
+
 
     private void pickTime() {
         binding.layoutTime.setOnClickListener(view -> {

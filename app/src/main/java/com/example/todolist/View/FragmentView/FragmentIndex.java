@@ -17,11 +17,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.example.todolist.Model.Enum.TaskStatus;
 import com.example.todolist.Model.Enum.TimeFilter;
 import com.example.todolist.Model.Task;
+import com.example.todolist.R;
 import com.example.todolist.Utils.CoverString;
 import com.example.todolist.View.ActivityView.EditTask;
 import com.example.todolist.View.rcv.FilterAdapter;
@@ -40,6 +40,7 @@ import java.util.Objects;
 public class FragmentIndex extends Fragment {
 
     private FragmentIndexBinding binding;
+    private final Context context = getContext();
     private TaskViewModel taskViewModel;
     private   TaskAdapter taskAdapter;
     @Override
@@ -69,7 +70,12 @@ public class FragmentIndex extends Fragment {
         dialog.setCancelable(true);
 
         binding.layoutDetailItem.setBackgroundColor(Integer.parseInt(task.getColorCode()));
-        binding.txtTitle.setText(task.getTitle());
+
+        if(task.getTitle()==null){
+            binding.txtTitle.setText(context.getString(R.string.newTask));
+        }else {
+            binding.txtTitle.setText(task.getTitle());
+        }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
 
@@ -120,6 +126,8 @@ public class FragmentIndex extends Fragment {
         //khởi động rcv của task
         binding.rcvTask.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rcvTask.setAdapter(taskAdapter);
+
+
         taskViewModel.getFilteredTaskIndex().observe(getViewLifecycleOwner(), tasks -> {
             taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog);
             String guess = "Bạn có "+ tasks.size()+" nhiệm vụ";
@@ -130,7 +138,6 @@ public class FragmentIndex extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         binding.rcvFilter.setLayoutManager(layoutManager);
         binding.rcvFilter.setAdapter(adapter);
-
     }
 
     private void initSearch(){

@@ -24,8 +24,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/avatar"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:src="@drawable/anh1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

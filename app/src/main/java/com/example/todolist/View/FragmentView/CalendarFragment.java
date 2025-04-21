@@ -1,5 +1,7 @@
 package com.example.todolist.View.FragmentView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -22,6 +24,7 @@ import com.example.todolist.Model.Task;
 import com.example.todolist.R;
 import com.example.todolist.Utils.CalendarUtils;
 import com.example.todolist.Utils.CoverString;
+import com.example.todolist.View.ActivityView.EditTask;
 import com.example.todolist.View.rcv.FilterAdapter;
 import com.example.todolist.View.rcv.TaskAdapter;
 import com.example.todolist.ViewModel.TagViewModel;
@@ -44,6 +47,7 @@ public class CalendarFragment extends Fragment {
 
     private FragmentCalendarBinding binding;
     private TaskViewModel taskViewModel;
+    private final Context  context = getContext();
     private TaskAdapter taskAdapter;
 
 
@@ -75,7 +79,13 @@ public class CalendarFragment extends Fragment {
         dialog.setCancelable(true);
 
         binding.layoutDetailItem.setBackgroundColor(Integer.parseInt(task.getColorCode()));
-        binding.txtTitle.setText(task.getTitle());
+
+
+        if(task.getTitle()==null){
+            binding.txtTitle.setText(context.getString(R.string.newTask));
+        }else {
+            binding.txtTitle.setText(task.getTitle());
+        }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
 
@@ -95,7 +105,16 @@ public class CalendarFragment extends Fragment {
         binding.iconNotComplete.setVisibility(isCompleted ? View.GONE : View.VISIBLE);
 
 
-        binding.btnEdit.setOnClickListener(v -> dialog.dismiss());
+        binding.btnEdit.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), EditTask.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("task",task);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            dialog.dismiss();
+        });
+
+
 
         dialog.show();
     }
@@ -133,24 +152,18 @@ public class CalendarFragment extends Fragment {
         MothAdapter mothAdapter = new MothAdapter();
         binding.rcvMothChooser.setAdapter(mothAdapter);
 
-
         AtomicReference<YearMonth> currentMonth = new AtomicReference<>(YearMonth.now());
         List<LocalDate> dayList = CalendarUtils.getDaysInMonth(currentMonth.get());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         binding.rcvDayChooser.setLayoutManager(layoutManager);
-        DayAdapter dayAdapter = new DayAdapter(getContext(),dayList,dateSelected -> {
-        taskViewModel.setSelectedDate(dateSelected);
-        });
+        DayAdapter dayAdapter = new DayAdapter(getContext(),dayList,dateSelected -> taskViewModel.setSelectedDate(dateSelected));
         binding.rcvDayChooser.setAdapter(dayAdapter);
-
 
         mothAdapter.setOnClick(newMonth -> {
             currentMonth.set(newMonth);
             List<LocalDate> newDays = CalendarUtils.getDaysInMonth(currentMonth.get());
             dayAdapter.setNewData(newDays);
         });
-
-
     }
 }

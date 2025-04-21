@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:hint="@string/newTask"
+                    android:hint="@string/editTask"
                     android:inputType="textCapSentences|textMultiLine"
                     android:maxLength="50"
                     android:maxLines="3" />

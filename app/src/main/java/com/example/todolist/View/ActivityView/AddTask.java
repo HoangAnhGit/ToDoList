@@ -105,9 +105,7 @@ public class AddTask extends AppCompatActivity {
     }
 
     private void setupUI() {
-        binding.btnBack.setOnClickListener(v -> {
-            finish();
-        });
+        binding.btnBack.setOnClickListener(v -> finish());
         binding.btnCreate.setOnClickListener(v -> {
             String title = Objects.requireNonNull(binding.titleEdittext.getText()).toString().trim();
             String des = Objects.requireNonNull(binding.descriptionEdittext.getText()).toString().trim();
@@ -280,8 +278,10 @@ public class AddTask extends AppCompatActivity {
         String dayWithSuffix = dayOfMonth + getDaySuffix(dayOfMonth);
 
 
-        bindingRepeat.weekly.setText("Weekly (" + dayOfWeek + ")");
-        bindingRepeat.monthly.setText("Monthly (On " + dayWithSuffix + ")");
+        String strWeek ="Weekly (" + dayOfWeek + ")";
+        String strMonth="Monthly (On " + dayWithSuffix + ")";
+        bindingRepeat.weekly.setText(strWeek);
+        bindingRepeat.monthly.setText(strMonth);
 
 
         bindingRepeat.repeatOptions.setOnCheckedChangeListener((group, checkedId) -> {

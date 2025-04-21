@@ -25,8 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/NoReminder"
-            style="@style/Base.TextAppearance.AppCompat.Body2"
-            android:checked="true" />
+            style="@style/Base.TextAppearance.AppCompat.Body2" />
 
         <RadioButton
             android:id="@+id/onEvent"

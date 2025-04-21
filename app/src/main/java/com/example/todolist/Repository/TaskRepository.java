@@ -80,4 +80,8 @@ public class TaskRepository {
     public LiveData<List<Task>> getTasksByTagAndDate(int tagId, LocalDate date) {
         return taskDao.getTasksByTagAndDate(tagId, date);
     }
+
+    public LiveData<List<Task>> getTasksByDate(LocalDate date) {
+        return taskDao.getTasksByDate( date);
+    }
 }

@@ -58,4 +58,6 @@ public interface TaskDAO {
     @Query("SELECT * FROM task WHERE tag_id = :tagId AND dueDate = :date")
     LiveData<List<Task>> getTasksByTagAndDate(int tagId, LocalDate date);
 
+    @Query("SELECT * FROM task WHERE  dueDate = :date")
+    LiveData<List<Task>> getTasksByDate( LocalDate date);
 }

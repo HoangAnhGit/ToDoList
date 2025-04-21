@@ -123,7 +123,7 @@ public class CalendarFragment extends Fragment {
             //rcv task
             binding.rcvTask.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.rcvTask.setAdapter(taskAdapter);
-            taskViewModel.getFilteredTasks().observe(getViewLifecycleOwner(), tasks -> taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog));
+            taskViewModel.filteredTasksIdTagDate().observe(getViewLifecycleOwner(), tasks -> taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog));
         });
     }
 
@@ -140,7 +140,7 @@ public class CalendarFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         binding.rcvDayChooser.setLayoutManager(layoutManager);
         DayAdapter dayAdapter = new DayAdapter(getContext(),dayList,dateSelected -> {
-
+        taskViewModel.setSelectedDate(dateSelected);
         });
         binding.rcvDayChooser.setAdapter(dayAdapter);
 

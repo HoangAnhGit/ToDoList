@@ -20,9 +20,8 @@ public class TaskViewModel extends AndroidViewModel {
     private final TaskRepository repository;
     private final LiveData<List<Task>> allTasks;
 
-    private LiveData<List<Task>> filteredTasksIdTagDate;
-
     private final MutableLiveData<Integer> selectedTagId = new MutableLiveData<>(0);
+    private final MutableLiveData<LocalDate> selectedDate = new MutableLiveData<>(null);
     private final LiveData<List<Task>> filteredTasks;
 
     private final MutableLiveData<String> currentFilter = new MutableLiveData<>("TODAY");
@@ -91,18 +90,26 @@ public class TaskViewModel extends AndroidViewModel {
         return currentFilter;
     }
 
-    public void filterTasks(int tagId, LocalDate date) {
 
-         if (tagId == 0) {
-            filteredTasksIdTagDate = repository.getAllTasks();
-        } else if (date == null) {
-            filteredTasksIdTagDate = repository.getTasksByTagAndDate(tagId, LocalDate.now());
-        } else {
-             filteredTasksIdTagDate = repository.getTasksByTagAndDate(tagId,date);
-        }
+    //21/4
+    public void setSelectedDate(LocalDate date) {
+        selectedDate.setValue(date);
     }
 
-    public LiveData<List<Task>> getFilteredTasksIdTagDate() {
-        return filteredTasksIdTagDate;
+    public LiveData<List<Task>> filteredTasksIdTagDate() {
+        return Transformations.switchMap(selectedTagId, tagId -> {
+            return Transformations.switchMap(selectedDate, date -> {
+                if (tagId == 0 && date==null) {
+                    return repository.getTasksByDate(LocalDate.now());
+                } else if(tagId == 0 && date!=null){
+                    return repository.getTasksByDate(date);
+                }
+                else if (date == null) {
+                    return repository.getTasksByTagAndDate(tagId,LocalDate.now());
+                } else {
+                    return repository.getTasksByTagAndDate(tagId, date);
+                }
+            });
+        });
     }
 }

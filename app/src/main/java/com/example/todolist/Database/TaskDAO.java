@@ -55,4 +55,7 @@ public interface TaskDAO {
     @Query("SELECT * FROM task WHERE dueDate BETWEEN :start AND :end")
     LiveData<List<Task>> getTasksBetweenDates(LocalDate start, LocalDate end);
 
+    @Query("SELECT * FROM task WHERE tag_id = :tagId AND dueDate = :date")
+    LiveData<List<Task>> getTasksByTagAndDate(int tagId, LocalDate date);
+
 }

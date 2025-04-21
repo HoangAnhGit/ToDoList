@@ -1,6 +1,7 @@
 package com.example.todolist.View.FragmentView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.example.todolist.Model.Enum.TaskStatus;
 import com.example.todolist.Model.Enum.TimeFilter;
 import com.example.todolist.Model.Task;
 import com.example.todolist.Utils.CoverString;
+import com.example.todolist.View.ActivityView.EditTask;
 import com.example.todolist.View.rcv.FilterAdapter;
 import com.example.todolist.View.rcv.TaskAdapter;
 import com.example.todolist.ViewModel.TaskViewModel;
@@ -89,6 +91,11 @@ public class FragmentIndex extends Fragment {
 
         binding.btnEdit.setOnClickListener(v -> {
 
+            Intent intent = new Intent(getActivity(), EditTask.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("task",task);
+            intent.putExtras(bundle);
+            startActivity(intent);
             dialog.dismiss();
         });
 
@@ -115,6 +122,8 @@ public class FragmentIndex extends Fragment {
         binding.rcvTask.setAdapter(taskAdapter);
         taskViewModel.getFilteredTaskIndex().observe(getViewLifecycleOwner(), tasks -> {
             taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog);
+            String guess = "Bạn có "+ tasks.size()+" nhiệm vụ";
+            binding.txtGuess.setText(guess);
         });
 
         //Khởi động rcv của filter

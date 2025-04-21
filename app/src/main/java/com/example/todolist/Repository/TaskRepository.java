@@ -76,4 +76,8 @@ public class TaskRepository {
         return taskDao.getTasksBetweenDates(start, end);
     }
 
+
+    public LiveData<List<Task>> getTasksByTagAndDate(int tagId, LocalDate date) {
+        return taskDao.getTasksByTagAndDate(tagId, date);
+    }
 }

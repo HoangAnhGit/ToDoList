@@ -10,8 +10,8 @@
         android:id="@+id/tvReminderTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chọn nhắc nhở"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:text="@string/reminder"
+        style="@style/Base.TextAppearance.AppCompat.Body1.Bold"
         android:paddingBottom="8dp" />
 
     <RadioGroup
@@ -24,26 +24,30 @@
             android:id="@+id/noReminder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Không nhắc nhở"
+            android:text="@string/NoReminder"
+            style="@style/Base.TextAppearance.AppCompat.Body2"
             android:checked="true" />
 
         <RadioButton
             android:id="@+id/onEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nhắc khi sự kiện diễn ra" />
+            style="@style/Base.TextAppearance.AppCompat.Body2"
+            android:text="@string/ReminderAtEvent" />
 
         <RadioButton
             android:id="@+id/fifteenMinutesBefore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15 phút trước sự kiện" />
+            style="@style/Base.TextAppearance.AppCompat.Body2"
+            android:text="@string/ReminderFifteenMinuteBefore" />
 
         <RadioButton
             android:id="@+id/oneHourBefore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1 giờ trước sự kiện" />
+            style="@style/Base.TextAppearance.AppCompat.Body2"
+            android:text="@string/ReminderOneHourBefore" />
 
     </RadioGroup>
 

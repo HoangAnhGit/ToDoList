@@ -1,5 +1,6 @@
 package com.example.todolist.View.FragmentView;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,9 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.todolist.Calendar.DayAdapter;
+import com.example.todolist.Calendar.MothAdapter;
 import com.example.todolist.Model.Enum.TaskStatus;
 import com.example.todolist.Model.Tag;
 import com.example.todolist.Model.Task;
+import com.example.todolist.R;
+import com.example.todolist.Utils.CalendarUtils;
 import com.example.todolist.Utils.CoverString;
 import com.example.todolist.View.rcv.FilterAdapter;
 import com.example.todolist.View.rcv.TaskAdapter;
@@ -25,10 +30,13 @@ import com.example.todolist.databinding.DialogDeltailTaskBinding;
 import com.example.todolist.databinding.FragmentCalendarBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class CalendarFragment extends Fragment {
@@ -49,11 +57,11 @@ public class CalendarFragment extends Fragment {
         taskAdapter = new TaskAdapter();
 
         initFilter();
+        initCalendar();
 
 
         return mView;
     }
-
 
 
     private void openDetailDialog(Task task) {
@@ -117,5 +125,32 @@ public class CalendarFragment extends Fragment {
             binding.rcvTask.setAdapter(taskAdapter);
             taskViewModel.getFilteredTasks().observe(getViewLifecycleOwner(), tasks -> taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog));
         });
+    }
+
+    private void initCalendar() {
+
+        binding.rcvMothChooser.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        MothAdapter mothAdapter = new MothAdapter();
+        binding.rcvMothChooser.setAdapter(mothAdapter);
+
+
+        AtomicReference<YearMonth> currentMonth = new AtomicReference<>(YearMonth.now());
+        List<LocalDate> dayList = CalendarUtils.getDaysInMonth(currentMonth.get());
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        binding.rcvDayChooser.setLayoutManager(layoutManager);
+        DayAdapter dayAdapter = new DayAdapter(getContext(),dayList,dateSelected -> {
+
+        });
+        binding.rcvDayChooser.setAdapter(dayAdapter);
+
+
+        mothAdapter.setOnClick(newMonth -> {
+            currentMonth.set(newMonth);
+            List<LocalDate> newDays = CalendarUtils.getDaysInMonth(currentMonth.get());
+            dayAdapter.setNewData(newDays);
+        });
+
+
     }
 }

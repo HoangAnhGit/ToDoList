@@ -14,13 +14,14 @@ import com.example.todolist.R;
 import com.example.todolist.Utils.LocalDateConverter;
 import com.example.todolist.Utils.LocalTimeConverter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 
 @Entity(tableName = "task")
 @TypeConverters({LocalDateConverter.class, LocalTimeConverter.class})
-public class Task {
+public class Task implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;

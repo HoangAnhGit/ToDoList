@@ -10,6 +10,7 @@ import androidx.lifecycle.Transformations;
 import com.example.todolist.Model.Task;
 import com.example.todolist.Repository.TaskRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -18,6 +19,8 @@ public class TaskViewModel extends AndroidViewModel {
 
     private final TaskRepository repository;
     private final LiveData<List<Task>> allTasks;
+
+    private LiveData<List<Task>> filteredTasksIdTagDate;
 
     private final MutableLiveData<Integer> selectedTagId = new MutableLiveData<>(0);
     private final LiveData<List<Task>> filteredTasks;
@@ -86,5 +89,20 @@ public class TaskViewModel extends AndroidViewModel {
 
     public LiveData<String> getCurrentFilter() {
         return currentFilter;
+    }
+
+    public void filterTasks(int tagId, LocalDate date) {
+
+         if (tagId == 0) {
+            filteredTasksIdTagDate = repository.getAllTasks();
+        } else if (date == null) {
+            filteredTasksIdTagDate = repository.getTasksByTagAndDate(tagId, LocalDate.now());
+        } else {
+             filteredTasksIdTagDate = repository.getTasksByTagAndDate(tagId,date);
+        }
+    }
+
+    public LiveData<List<Task>> getFilteredTasksIdTagDate() {
+        return filteredTasksIdTagDate;
     }
 }

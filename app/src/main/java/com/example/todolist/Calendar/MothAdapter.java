@@ -7,12 +7,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.todolist.databinding.ItemMonthBinding;
 
+import java.time.YearMonth;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 public class MothAdapter extends RecyclerView.Adapter<MothAdapter.MonthHolder> {
 
 
-    private static final List<CallMonth> mList = CallMonth.monthsInYear();
+    public interface OnClickChangeItemMoth{
+        void onClickChange(YearMonth month);
+    }
+
+    private OnClickChangeItemMoth onClickChangeItemMoth;
+
+    private YearMonth currentYearMonth = YearMonth.now();
+
+    public void setOnClick(OnClickChangeItemMoth onClickChangeItemMoth){
+        this.onClickChangeItemMoth = onClickChangeItemMoth;
+    }
     @NonNull
     @Override
     public MonthHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -22,22 +35,30 @@ public class MothAdapter extends RecyclerView.Adapter<MothAdapter.MonthHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MonthHolder holder, int position) {
-        CallMonth month = mList.get(position);
-        holder.binding.month.setText(month.getMonthName());
+        String monthName = currentYearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+        int year = currentYearMonth.getYear();
+
+        holder.binding.month.setText(monthName);
+        holder.binding.txtYear.setText(String.valueOf(year));
+
+        holder.binding.btnNextDay.setOnClickListener(v -> {
+            currentYearMonth = currentYearMonth.plusMonths(1);
+            notifyItemChanged(position);
+            onClickChangeItemMoth.onClickChange(currentYearMonth);
+        });
+
+        holder.binding.btnPrevDay.setOnClickListener(v -> {
+            currentYearMonth = currentYearMonth.minusMonths(1);
+            notifyItemChanged(position);
+            onClickChangeItemMoth.onClickChange(currentYearMonth);
+        });
 
     }
 
-    public CallMonth getItemAtPosition(int position) {
-        if (position >= 0 && position < mList.size()) {
-            return mList.get(position);
-        } else {
-            return null;
-        }
-    }
 
     @Override
     public int getItemCount() {
-        return mList != null ? mList.size() : 0;
+        return 1;
     }
 
     public static class MonthHolder extends RecyclerView.ViewHolder {

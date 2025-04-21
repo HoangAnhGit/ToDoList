@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/anyTime"
-                style="@style/Base.TextAppearance.AppCompat.Body2."/>
+                style="@style/Base.TextAppearance.AppCompat.Caption.Bold"/>
 
             <TextView
                 android:layout_marginTop="8dp"
@@ -54,7 +54,7 @@
             android:id="@+id/iconNotComplete"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="32dp"
             android:contentDescription="@string/txtImg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
             android:id="@+id/iconComplete"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="32dp"
             android:contentDescription="@string/txtImg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

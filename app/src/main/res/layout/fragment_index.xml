@@ -28,9 +28,9 @@
 
     <EditText
         android:id="@+id/search_bar"
-        style="@style/Base.TextAppearance.AppCompat.Widget.Button.text"
+        style="@style/Base.TextAppearance.AppCompat.Body2.Bold"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="64dp"
         android:layout_marginTop="16dp"
         android:autofillHints="name"
         android:background="@drawable/bg_search_bar"

@@ -188,7 +188,7 @@ public class AddTask extends AppCompatActivity {
             }
 
             MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
-                    .setTitleText("Chọn ngày")
+                    .setTitleText("Calendar")
                     .setSelection(initialSelection)
                     .setCalendarConstraints(constraintsBuilder.build())
                     .build();

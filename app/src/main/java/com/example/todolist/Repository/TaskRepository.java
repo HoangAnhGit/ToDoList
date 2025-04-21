@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.example.todolist.Database.AppDatabase;
 import com.example.todolist.Database.TaskDAO;
@@ -90,4 +92,18 @@ public class TaskRepository {
     public LiveData<List<LocalDate>> getUnfinishedTaskDates() {
         return taskDao.getUnfinishedTaskDates(TaskStatus.PENDING, TaskStatus.OVERDUE);
     }
+
+    //overdue
+    public void updateOverdueTasks() {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<Task> tasks = taskDao.getAllTasksNow();
+            for (Task task : tasks) {
+                if (task.isOverdueNow() && task.getStatus() != TaskStatus.OVERDUE) {
+                    task.setStatus(TaskStatus.OVERDUE);
+                    taskDao.updateTask(task);
+                }
+            }
+        });
+    }
+
 }

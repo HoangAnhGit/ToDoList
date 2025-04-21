@@ -117,4 +117,9 @@ public class TaskViewModel extends AndroidViewModel {
     public LiveData<List<LocalDate>> getUnfinishedTaskDates() {
         return repository.getUnfinishedTaskDates();
     }
+
+    //cập nhập overdue
+    public void refreshOverdueTasks() {
+        repository.updateOverdueTasks();
+    }
 }

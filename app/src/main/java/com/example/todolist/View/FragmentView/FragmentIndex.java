@@ -26,8 +26,10 @@ import com.example.todolist.Model.Enum.TimeFilter;
 import com.example.todolist.Model.Task;
 import com.example.todolist.R;
 import com.example.todolist.Utils.CoverString;
+import com.example.todolist.Utils.DateUtils;
 import com.example.todolist.Utils.ItemTouchHelperListener;
 import com.example.todolist.Utils.RecyclerViewItemTouchHelper;
+import com.example.todolist.Utils.TimeUtils;
 import com.example.todolist.View.ActivityView.EditTask;
 import com.example.todolist.View.rcv.FilterAdapter;
 import com.example.todolist.View.rcv.TaskAdapter;
@@ -56,6 +58,9 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
         binding = FragmentIndexBinding.inflate(inflater, container, false);
         View mView = binding.getRoot();
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+        // check quá hạn
+        taskViewModel.refreshOverdueTasks();
+
         taskAdapter = new TaskAdapter();
         context = getContext();
 
@@ -79,28 +84,34 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
 
         binding.layoutDetailItem.setBackgroundColor(Integer.parseInt(task.getColorCode()));
 
-        if (task.getTitle() == null) {
-            binding.txtTitle.setText(context.getString(R.string.newTask));
-        } else {
-            binding.txtTitle.setText(task.getTitle());
+
+        if(task.getStatus()==TaskStatus.OVERDUE){
+            String strNote = "Noted on "+DateUtils.getDayLabel(task.getDueDate());
+            binding.txtDes.setText(strNote);
         }
+        else{
+            if (task.getTitle() == null) {
+                binding.txtTitle.setText(context.getString(R.string.newTask));
+            } else {
+                binding.txtTitle.setText(task.getTitle());
+            }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+            binding.txtTime.setText(
+                    task.getDueTime() != null ? TimeUtils.toLabel(task.getDueTime()) : "Any time"
+            );
+            binding.txtDes.setText(task.getDescription());
+            binding.iconTask.setImageResource(task.getIdIcon());
 
-        binding.txtTime.setText(
-                task.getDueTime() != null ? task.getDueTime().format(formatter) : "Any time"
-        );
-        binding.txtDes.setText(task.getDescription());
-        binding.iconTask.setImageResource(task.getIdIcon());
-
-        CoverString coverString = new CoverString();
-        String toStringStatus = coverString.RepeatToString(task.getRepeatFrequency(), task.getDueDate()) + " , " + coverString.Reminder(task.getReminderSetting(), task.getDueTime());
-        binding.txtStatusTask.setText(toStringStatus);
+            CoverString coverString = new CoverString();
+            String toStringStatus = coverString.RepeatToString(task.getRepeatFrequency(), task.getDueDate()) + " , " + coverString.Reminder(task.getReminderSetting(), task.getDueTime());
+            binding.txtStatusTask.setText(toStringStatus);
 
 
-        boolean isCompleted = task.getStatus().equals(TaskStatus.COMPLETED);
-        binding.iconComplete.setVisibility(isCompleted ? View.VISIBLE : View.GONE);
-        binding.iconNotComplete.setVisibility(isCompleted ? View.GONE : View.VISIBLE);
+            boolean isCompleted = task.getStatus().equals(TaskStatus.COMPLETED);
+            binding.iconComplete.setVisibility(isCompleted ? View.VISIBLE : View.GONE);
+            binding.iconNotComplete.setVisibility(isCompleted ? View.GONE : View.VISIBLE);
+
+        }
 
 
         binding.btnEdit.setOnClickListener(v -> {
@@ -135,7 +146,7 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
         binding.rcvTask.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rcvTask.setAdapter(taskAdapter);
 
-
+        //main
         taskViewModel.getFilteredTaskIndex().observe(getViewLifecycleOwner(), tasks -> {
             taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog);
             String guess = "Bạn có " + tasks.size() + " nhiệm vụ";

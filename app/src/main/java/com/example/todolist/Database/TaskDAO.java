@@ -63,4 +63,8 @@ public interface TaskDAO {
 
     @Query("SELECT DISTINCT dueDate FROM Task WHERE status = :pending OR status = :overdue")
     LiveData<List<LocalDate>> getUnfinishedTaskDates(TaskStatus pending, TaskStatus overdue);
+
+    //overdue
+    @Query("SELECT * FROM Task")
+    List<Task> getAllTasksNow();
 }

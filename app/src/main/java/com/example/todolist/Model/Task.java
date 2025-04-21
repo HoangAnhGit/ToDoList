@@ -165,4 +165,16 @@ public class Task implements Serializable {
                 ", idTag=" + idTag +
                 '}';
     }
+
+    public boolean isOverdueNow() {
+        if (status != TaskStatus.PENDING) return false;
+
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+
+        if (dueDate.isBefore(today)) return true;
+        if (dueDate.isEqual(today) && dueTime != null && dueTime.isBefore(now)) return true;
+
+        return false;
+    }
 }

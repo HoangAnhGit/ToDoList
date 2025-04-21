@@ -59,7 +59,6 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
         View mView = binding.getRoot();
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         // check quá hạn
-        taskViewModel.refreshOverdueTasks();
 
         taskAdapter = new TaskAdapter();
         context = getContext();
@@ -83,22 +82,25 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
         dialog.setCancelable(true);
 
         binding.layoutDetailItem.setBackgroundColor(Integer.parseInt(task.getColorCode()));
+        if (task.getTitle() == null) {
+            binding.txtTitle.setText(context.getString(R.string.newTask));
+        } else {
+            binding.txtTitle.setText(task.getTitle());
+        }
+
+        binding.txtTime.setText(
+                task.getDueTime() != null ? TimeUtils.toLabel(task.getDueTime()) : "Any time"
+        );
+
 
 
         if(task.getStatus()==TaskStatus.OVERDUE){
             String strNote = "Noted on "+DateUtils.getDayLabel(task.getDueDate());
             binding.txtDes.setText(strNote);
+            binding.txtStatusTask.setVisibility(View.GONE);
         }
         else{
-            if (task.getTitle() == null) {
-                binding.txtTitle.setText(context.getString(R.string.newTask));
-            } else {
-                binding.txtTitle.setText(task.getTitle());
-            }
 
-            binding.txtTime.setText(
-                    task.getDueTime() != null ? TimeUtils.toLabel(task.getDueTime()) : "Any time"
-            );
             binding.txtDes.setText(task.getDescription());
             binding.iconTask.setImageResource(task.getIdIcon());
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.todolist.Database.AppDatabase;
 import com.example.todolist.Database.TaskDAO;
+import com.example.todolist.Model.Enum.TaskStatus;
 import com.example.todolist.Model.Task;
 
 import java.time.DayOfWeek;
@@ -83,5 +84,10 @@ public class TaskRepository {
 
     public LiveData<List<Task>> getTasksByDate(LocalDate date) {
         return taskDao.getTasksByDate( date);
+    }
+
+    //dot
+    public LiveData<List<LocalDate>> getUnfinishedTaskDates() {
+        return taskDao.getUnfinishedTaskDates(TaskStatus.PENDING, TaskStatus.OVERDUE);
     }
 }

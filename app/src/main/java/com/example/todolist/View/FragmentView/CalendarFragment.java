@@ -42,8 +42,10 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 
@@ -170,6 +172,16 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
         binding.rcvDayChooser.setLayoutManager(layoutManager);
         DayAdapter dayAdapter = new DayAdapter(getContext(),dayList,dateSelected -> taskViewModel.setSelectedDate(dateSelected));
         binding.rcvDayChooser.setAdapter(dayAdapter);
+        dayAdapter.scrollToSelectedDate(binding.rcvDayChooser);
+
+        // hiện dot
+        taskViewModel.getUnfinishedTaskDates().observe(getViewLifecycleOwner(), unfinishedDates -> {
+            if (unfinishedDates != null) {
+                Set<LocalDate> set = new HashSet<>(unfinishedDates);
+                dayAdapter.setDaysWithUnfinishedTasks(set);
+            }
+        });
+
 
         mothAdapter.setOnClick(newMonth -> {
             currentMonth.set(newMonth);

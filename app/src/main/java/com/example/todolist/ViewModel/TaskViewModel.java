@@ -112,4 +112,9 @@ public class TaskViewModel extends AndroidViewModel {
             });
         });
     }
+
+    //dot
+    public LiveData<List<LocalDate>> getUnfinishedTaskDates() {
+        return repository.getUnfinishedTaskDates();
+    }
 }

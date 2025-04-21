@@ -1,80 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="120dp"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="16dp"
-    android:padding="16dp"
-    app:cardCornerRadius="32dp">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/layout_item"
-        android:background="@color/light_gray">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp">
 
-        <ImageView
-            android:id="@+id/iconTask"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:contentDescription="@string/txtImg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/study"/>
+    <!-- backGround-->
 
-        <LinearLayout
+    <RelativeLayout
+        android:id="@+id/layout_background"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:background="@drawable/bg_radius_32_red"
+        android:layout_gravity="end">
+
+        <TextView
+            android:id="@+id/tvTitleDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iconTask"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp">
+            android:text="@string/delete"
+            style="@style/Base.TextAppearance.AppCompat.Body1.Bold"
+            android:textColor="@color/white"
+            android:layout_toStartOf="@+id/imgDelete"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"/>
+        
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/imgDelete"
+            android:src="@mipmap/delete_white"
+            android:contentDescription="@string/txtImg"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"/>
 
-            <TextView
-                android:id="@+id/txtTime"
+    </RelativeLayout>
+
+    <!--foreGround-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layout_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:padding="16dp"
+        app:cardCornerRadius="32dp"
+        android:visibility="visible">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/layout_item"
+            android:background="@color/light_gray">
+
+            <ImageView
+                android:id="@+id/iconTask"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/txtImg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/study"/>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/anyTime"
-                style="@style/Base.TextAppearance.AppCompat.Caption.Bold"/>
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iconTask"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp">
 
-            <TextView
-                android:layout_marginTop="8dp"
-                android:id="@+id/txtTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/anyTime"
-                style="@style/Base.TextAppearance.AppCompat.Body1.Bold"/>
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/txtTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/anyTime"
+                    style="@style/Base.TextAppearance.AppCompat.Caption.Bold"/>
 
-
-
-        <ImageView
-            android:id="@+id/iconNotComplete"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="32dp"
-            android:contentDescription="@string/txtImg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@mipmap/not_complete"
-            android:visibility="gone"/>
+                <TextView
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/txtTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/anyTime"
+                    style="@style/Base.TextAppearance.AppCompat.Body1.Bold"/>
+            </LinearLayout>
 
 
 
-        <ImageView
-            android:id="@+id/iconComplete"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="32dp"
-            android:contentDescription="@string/txtImg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@mipmap/complete"
-            android:visibility="visible"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/iconNotComplete"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="32dp"
+                android:contentDescription="@string/txtImg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@mipmap/not_complete"
+                android:visibility="gone"/>
 
-</androidx.cardview.widget.CardView>
+
+
+            <ImageView
+                android:id="@+id/iconComplete"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="32dp"
+                android:contentDescription="@string/txtImg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@mipmap/complete"
+                android:visibility="visible"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

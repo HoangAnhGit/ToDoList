@@ -120,11 +120,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> im
     }
 
     public static class TaskHolder extends RecyclerView.ViewHolder{
-        ItemTaskBinding binding;
+        public ItemTaskBinding binding;
         public TaskHolder(@NonNull  ItemTaskBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    public Task getTaskAt(int position) {
+        return mList.get(position);
     }
 
     @Override

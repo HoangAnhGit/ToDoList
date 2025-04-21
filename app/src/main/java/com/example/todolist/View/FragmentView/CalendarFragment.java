@@ -2,15 +2,17 @@ package com.example.todolist.View.FragmentView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,8 @@ import com.example.todolist.Model.Task;
 import com.example.todolist.R;
 import com.example.todolist.Utils.CalendarUtils;
 import com.example.todolist.Utils.CoverString;
+import com.example.todolist.Utils.ItemTouchHelperListener;
+import com.example.todolist.Utils.RecyclerViewItemTouchHelper;
 import com.example.todolist.View.ActivityView.EditTask;
 import com.example.todolist.View.rcv.FilterAdapter;
 import com.example.todolist.View.rcv.TaskAdapter;
@@ -32,6 +36,7 @@ import com.example.todolist.ViewModel.TaskViewModel;
 import com.example.todolist.databinding.DialogDeltailTaskBinding;
 import com.example.todolist.databinding.FragmentCalendarBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -42,12 +47,12 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 
-public class CalendarFragment extends Fragment {
+public class CalendarFragment extends Fragment implements ItemTouchHelperListener {
 
 
     private FragmentCalendarBinding binding;
     private TaskViewModel taskViewModel;
-    private final Context  context = getContext();
+    private  Context  context ;
     private TaskAdapter taskAdapter;
 
 
@@ -59,6 +64,8 @@ public class CalendarFragment extends Fragment {
 
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         taskAdapter = new TaskAdapter();
+
+        context = getContext();
 
         initFilter();
         initCalendar();
@@ -142,6 +149,10 @@ public class CalendarFragment extends Fragment {
             //rcv task
             binding.rcvTask.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.rcvTask.setAdapter(taskAdapter);
+
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
+                    new RecyclerViewItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+            new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(binding.rcvTask);
             taskViewModel.filteredTasksIdTagDate().observe(getViewLifecycleOwner(), tasks -> taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog));
         });
     }
@@ -165,5 +176,32 @@ public class CalendarFragment extends Fragment {
             List<LocalDate> newDays = CalendarUtils.getDaysInMonth(currentMonth.get());
             dayAdapter.setNewData(newDays);
         });
+    }
+
+    @Override
+    public void onSwipe(RecyclerView.ViewHolder viewHolder) {
+        if (viewHolder instanceof TaskAdapter.TaskHolder) {
+            int position = viewHolder.getAdapterPosition();
+            Task task = taskAdapter.getTaskAt(position);
+
+            new AlertDialog.Builder(requireContext())
+                    .setTitle("Xác nhận xoá")
+                    .setMessage("Bạn có chắc chắn muốn xoá nhiệm vụ này?")
+                    .setPositiveButton("Có", (dialog, which) -> {
+
+                        taskViewModel.delete(task);
+                        Snackbar snackbar = Snackbar.make(binding.getRoot(), "🗑️ Đã xoá nhiệm vụ", Snackbar.LENGTH_LONG)
+                                .setAction("Hoàn tác", v -> taskViewModel.insert(task));
+                        snackbar.show();
+
+
+                    })
+                    .setNegativeButton("Huỷ", (dialog, which) -> {
+                        taskAdapter.notifyItemChanged(position);
+                        dialog.dismiss();
+                    })
+                    .setCancelable(false)
+                    .show();
+        }
     }
 }

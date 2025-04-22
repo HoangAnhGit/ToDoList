@@ -42,7 +42,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -164,7 +163,10 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
             ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
                     new RecyclerViewItemTouchHelper(0, ItemTouchHelper.LEFT, this);
             new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(binding.rcvTask);
+
+            //main
             taskViewModel.filteredTasksIdTagDate().observe(getViewLifecycleOwner(), tasks -> taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog));
+
         });
     }
 
@@ -201,15 +203,16 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
 
     @Override
     public void onSwipe(RecyclerView.ViewHolder viewHolder) {
+
         if (viewHolder instanceof TaskAdapter.TaskHolder) {
             int position = viewHolder.getAdapterPosition();
             Task task = taskAdapter.getTaskAt(position);
 
             new AlertDialog.Builder(requireContext())
-                    .setTitle("Xác nhận xoá")
+                    .setTitle("❗ Xác nhận xoá")
                     .setMessage("Bạn có chắc chắn muốn xoá nhiệm vụ này?")
-                    .setPositiveButton("Có", (dialog, which) -> {
-
+                    .setIcon(R.drawable.logo)
+                    .setPositiveButton("🗑️ Có", (dialog, which) -> {
                         taskViewModel.delete(task);
                         Snackbar snackbar = Snackbar.make(binding.getRoot(), "🗑️ Đã xoá nhiệm vụ", Snackbar.LENGTH_LONG)
                                 .setAction("Hoàn tác", v -> taskViewModel.insert(task));
@@ -217,12 +220,29 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
 
 
                     })
-                    .setNegativeButton("Huỷ", (dialog, which) -> {
+                    .setNegativeButton("❌ Huỷ", (dialog, which) -> {
                         taskAdapter.notifyItemChanged(position);
                         dialog.dismiss();
                     })
                     .setCancelable(false)
                     .show();
+
         }
+    }
+
+    private void waitFix(){
+        taskViewModel.getFilteredTaskIndex().observe(getViewLifecycleOwner(), tasks -> {
+            taskAdapter.setAdapter(getContext(), tasks, taskViewModel, new TaskAdapter.onClickItem() {
+                @Override
+                public void onClickTask(Task task) {
+
+                }
+
+//                @Override
+//                public void onClickDeleteTask(Task task) {
+//                    taskViewModel.delete(task);
+//                }
+            });
+        });
     }
 }

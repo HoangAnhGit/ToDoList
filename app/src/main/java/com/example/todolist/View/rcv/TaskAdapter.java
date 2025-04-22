@@ -35,6 +35,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> im
 
     public interface  onClickItem{
         void onClickTask(Task task);
+
+        //void onClickDeleteTask(Task task);
     }
     private TaskViewModel taskViewModel;
 
@@ -94,6 +96,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> im
         });
 
         holder.binding.layoutItem.setOnClickListener(view->taskItemEventHandler.onClickTask(task));
+
+
+        //chờ fix đang bị đè sự kiện
+       // holder.binding.layoutBackground.setOnClickListener(view->taskItemEventHandler.onClickDeleteTask(task));
 
 
         //set

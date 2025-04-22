@@ -58,7 +58,7 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
         binding = FragmentIndexBinding.inflate(inflater, container, false);
         View mView = binding.getRoot();
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        // check quá hạn
+
 
         taskAdapter = new TaskAdapter();
         context = getContext();
@@ -155,6 +155,7 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
             binding.txtGuess.setText(guess);
         });
 
+
         //Khởi động rcv của filter
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         binding.rcvFilter.setLayoutManager(layoutManager);
@@ -212,15 +213,17 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
 
     @Override
     public void onSwipe(RecyclerView.ViewHolder viewHolder) {
+
+
         if (viewHolder instanceof TaskAdapter.TaskHolder) {
             int position = viewHolder.getAdapterPosition();
             Task task = taskAdapter.getTaskAt(position);
 
             new AlertDialog.Builder(requireContext())
-                    .setTitle("Xác nhận xoá")
+                    .setTitle("❗ Xác nhận xoá")
                     .setMessage("Bạn có chắc chắn muốn xoá nhiệm vụ này?")
-                    .setPositiveButton("Có", (dialog, which) -> {
-
+                    .setIcon(R.drawable.logo)
+                    .setPositiveButton("🗑️ Có", (dialog, which) -> {
                         taskViewModel.delete(task);
                         Snackbar snackbar = Snackbar.make(binding.getRoot(), "🗑️ Đã xoá nhiệm vụ", Snackbar.LENGTH_LONG)
                                 .setAction("Hoàn tác", v -> taskViewModel.insert(task));
@@ -228,19 +231,21 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
 
 
                     })
-                    .setNegativeButton("Huỷ", (dialog, which) -> {
+                    .setNegativeButton("❌ Huỷ", (dialog, which) -> {
                         taskAdapter.notifyItemChanged(position);
                         dialog.dismiss();
                     })
                     .setCancelable(false)
                     .show();
 
-            /*
+
+/*
             Snackbar.make(binding.getRoot(), "Task deleted", Snackbar.LENGTH_LONG)
                     .setAction("Undo", v -> {
                         taskViewModel.insert(task);
                     }).show();
-             */
+
+ */
         }
     }
 }

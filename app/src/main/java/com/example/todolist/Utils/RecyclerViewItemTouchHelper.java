@@ -48,6 +48,8 @@ public class RecyclerViewItemTouchHelper extends ItemTouchHelper.SimpleCallback 
 
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        float maxSwipeDistance = 200f;
+        dX = Math.max(-maxSwipeDistance, Math.min(0, dX));
         View foreGround = ((TaskAdapter.TaskHolder) viewHolder).binding.layoutForeground;
         getDefaultUIUtil().onDraw(c, recyclerView, foreGround, dX, dY, actionState, isCurrentlyActive);
     }

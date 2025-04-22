@@ -124,4 +124,6 @@
     <string name="ReminderAtEvent">Remind At Event</string>
     <string name="ReminderFifteenMinuteBefore">Reminder Fifteen Minute Before</string>
     <string name="ReminderOneHourBefore">Reminder One Hour Before</string>
+
+    <string name="tvWelcome">Không cần hoàn hảo chỉ cần bạn bắt đầu✌️</string>
 </resources>

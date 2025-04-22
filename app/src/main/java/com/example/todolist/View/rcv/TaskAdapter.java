@@ -69,10 +69,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> im
         holder.binding.iconComplete.setVisibility(isCompleted ? View.VISIBLE : View.GONE);
         holder.binding.iconNotComplete.setVisibility(isCompleted ? View.GONE : View.VISIBLE);
 
+
+        String title = (task.getTitle() == null) ? context.getString(R.string.newTask) : task.getTitle();
+        holder.binding.txtTitle.setText(title);
+
+        int flags = holder.binding.txtTitle.getPaintFlags();
         if (isCompleted) {
-            holder.binding.txtTitle.setPaintFlags(holder.binding.txtTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.binding.txtTitle.setPaintFlags(flags | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
-            holder.binding.txtTitle.setPaintFlags(holder.binding.txtTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            holder.binding.txtTitle.setPaintFlags(flags & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
 
 
@@ -110,11 +115,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> im
         );
 
         holder.binding.layoutItem.setBackgroundColor( Integer.parseInt(task.getColorCode()));
-        if(task.getTitle()==null){
-            holder.binding.txtTitle.setText(context.getString(R.string.newTask));
-        }else {
-            holder.binding.txtTitle.setText(task.getTitle());
-        }
 
 
 

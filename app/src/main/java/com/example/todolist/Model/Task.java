@@ -46,7 +46,7 @@ public class Task implements Serializable {
 
     public Task(Context context) {
 
-        this.title ="";
+        this.title =null;
         this.description = "";
         this.idIcon = R.drawable.graduation;
         this.colorCode = String.valueOf(ContextCompat.getColor(context, R.color.item_blue));

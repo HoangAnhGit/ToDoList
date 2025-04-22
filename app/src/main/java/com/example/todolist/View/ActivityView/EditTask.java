@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -161,7 +162,7 @@ public class EditTask extends AppCompatActivity {
         binding.layoutTime.setOnClickListener(v -> pickTime());
 
         binding.layoutRepeat.setOnClickListener(v -> showRepeatDialog());
-       binding.layoutReminder.setOnClickListener(v -> showReminderDialog());
+        binding.layoutReminder.setOnClickListener(v -> showReminderDialog());
         binding.pickIcon.setOnClickListener(v -> pickIcon());
         binding.layoutTag.setOnClickListener(v -> {
             Intent tagIntent = new Intent(this, TagActivity.class);
@@ -192,7 +193,24 @@ public class EditTask extends AppCompatActivity {
         bindingRepeat.weekly.setText("Weekly (" + dayOfWeek + ")");
         bindingRepeat.monthly.setText("Monthly (On " + dayWithSuffix + ")");
 
+        //
+        switch (taskEdit.getRepeatFrequency()) {
+            case OFF:
+                bindingRepeat.repeatOptions.check(R.id.noRepeat);
+                break;
+            case DAILY:
+                bindingRepeat.repeatOptions.check(R.id.daily);
+                break;
+            case WEEKLY:
+                bindingRepeat.repeatOptions.check(R.id.weekly);
+                break;
+            case MONTHLY:
+                bindingRepeat.repeatOptions.check(R.id.monthly);
+                break;
+        }
 
+
+        //TODO
         bindingRepeat.repeatOptions.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.noRepeat) {
                 binding.selectedRepeatText.setText(bindingRepeat.noRepeat.getText().toString());
@@ -218,9 +236,30 @@ public class EditTask extends AppCompatActivity {
     }
 
     private void showReminderDialog() {
+        if (taskEdit.getDueTime() == null) {
+            CustomToast.showCustomToastPlus(this, "Please select a time before setting a reminder.", Gravity.BOTTOM,R.drawable.hi);
+            return;
+        }
+
         BottomSheetDialog dialog = new BottomSheetDialog(this);
         DialogReminderBinding bindingReminder = DialogReminderBinding.inflate(getLayoutInflater());
         dialog.setContentView(bindingReminder.getRoot());
+
+        switch (taskEdit.getReminderSetting()) {
+            case NO_REMINDER:
+                bindingReminder.reminderOptions.check(R.id.noReminder);
+                break;
+            case AT_TIME_OF_DUE:
+                bindingReminder.reminderOptions.check(R.id.onEvent);
+                break;
+            case FIFTEEN_MINUTES_BEFORE:
+                bindingReminder.reminderOptions.check(R.id.fifteenMinutesBefore);
+                break;
+            case ONE_HOUR_BEFORE:
+                bindingReminder.reminderOptions.check(R.id.oneHourBefore);
+                break;
+        }
+
 
         bindingReminder.reminderOptions.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.noReminder) {
@@ -248,7 +287,7 @@ public class EditTask extends AppCompatActivity {
             reminderText = "Before event 15 minutes";
         } else if (taskEdit.getReminderSetting() == ReminderSetting.ONE_HOUR_BEFORE) {
             reminderText = "Before event 1 hour";
-        }else if (taskEdit.getReminderSetting() == ReminderSetting.AT_TIME_OF_DUE) {
+        } else if (taskEdit.getReminderSetting() == ReminderSetting.AT_TIME_OF_DUE) {
             reminderText = "At time of event";
         }
 

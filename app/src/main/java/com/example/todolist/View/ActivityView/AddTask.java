@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -283,6 +284,21 @@ public class AddTask extends AppCompatActivity {
         bindingRepeat.weekly.setText(strWeek);
         bindingRepeat.monthly.setText(strMonth);
 
+        switch (newTask.getRepeatFrequency()) {
+            case OFF:
+                bindingRepeat.repeatOptions.check(R.id.noRepeat);
+                break;
+            case DAILY:
+                bindingRepeat.repeatOptions.check(R.id.daily);
+                break;
+            case WEEKLY:
+                bindingRepeat.repeatOptions.check(R.id.weekly);
+                break;
+            case MONTHLY:
+                bindingRepeat.repeatOptions.check(R.id.monthly);
+                break;
+        }
+
 
         bindingRepeat.repeatOptions.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.noRepeat) {
@@ -323,9 +339,30 @@ public class AddTask extends AppCompatActivity {
     }
 
     private void showReminderDialog() {
+
+        if (newTask.getDueTime() == null) {
+            CustomToast.showCustomToastPlus(this, "Please select a time before setting a reminder.", Gravity.BOTTOM,R.drawable.hi);
+            return;
+        }
+
         BottomSheetDialog dialog = new BottomSheetDialog(this);
         DialogReminderBinding bindingReminder = DialogReminderBinding.inflate(getLayoutInflater());
         dialog.setContentView(bindingReminder.getRoot());
+
+        switch (newTask.getReminderSetting()) {
+            case NO_REMINDER:
+                bindingReminder.reminderOptions.check(R.id.noReminder);
+                break;
+            case AT_TIME_OF_DUE:
+                bindingReminder.reminderOptions.check(R.id.onEvent);
+                break;
+            case FIFTEEN_MINUTES_BEFORE:
+                bindingReminder.reminderOptions.check(R.id.fifteenMinutesBefore);
+                break;
+            case ONE_HOUR_BEFORE:
+                bindingReminder.reminderOptions.check(R.id.oneHourBefore);
+                break;
+        }
 
         bindingReminder.reminderOptions.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.noReminder) {

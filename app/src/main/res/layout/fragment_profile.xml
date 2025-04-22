@@ -26,7 +26,7 @@
                 android:id="@+id/avatar"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/anh1"
+                android:src="@drawable/avatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -68,33 +68,49 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginBottom="40dp"
                 android:layout_marginStart="40dp"
-                style="@style/Base.TextAppearance.AppCompat.Body2."/>
+                style="@style/Base.TextAppearance.AppCompat.Body2.Bold"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/txtImg"
+                android:src="@drawable/stars_yellow"
+                android:layout_marginBottom="28dp"
+                android:layout_marginStart="28dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTaskComplete"
+                app:layout_constraintEnd_toEndOf="@+id/tvTaskComplete"
+                app:layout_constraintStart_toStartOf="@+id/tvTaskComplete"
+                app:layout_constraintTop_toTopOf="@+id/tvTaskComplete" />
 
             <TextView
+                android:id="@+id/tvTaskTotal"
+                style="@style/TextHeading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/txtTotalTask"
-                app:layout_constraintEnd_toEndOf="@+id/txtTotalTask"
-                app:layout_constraintStart_toStartOf="@+id/txtTotalTask"
                 android:layout_marginBottom="24dp"
                 android:text="@string/o"
-                style="@style/TextHeading"/>
+                android:padding="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/txtTotalTask"
+                app:layout_constraintEnd_toEndOf="@+id/txtTotalTask"
+                app:layout_constraintStart_toStartOf="@+id/txtTotalTask" />
 
             <TextView
                 android:id="@+id/txtTaskComplete"
-                style="@style/Base.TextAppearance.AppCompat.Body2."
+                style="@style/Base.TextAppearance.AppCompat.Body2.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
                 android:layout_marginEnd="40dp"
-                android:text="@string/TaskTotal"
+                android:text="@string/taskComplete"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
+                android:id="@+id/tvTaskComplete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/o"
+                android:padding="8dp"
                 android:layout_marginBottom="24dp"
                 style="@style/TextHeading"
                 app:layout_constraintBottom_toTopOf="@+id/txtTaskComplete"

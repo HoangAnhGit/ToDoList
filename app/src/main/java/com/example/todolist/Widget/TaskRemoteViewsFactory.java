@@ -72,7 +72,7 @@ public class TaskRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
             fillInIntent.putExtra("TASK_ID", task.getId());
             views.setOnClickFillInIntent(R.id.layout_task_widget, fillInIntent);
         }else {
-            views.setTextViewText(R.id.txtTitle, "");
+            views.setTextViewText(R.id.txtTitle, "Chưa có nhiệm vụ");
         }
 
         return views;

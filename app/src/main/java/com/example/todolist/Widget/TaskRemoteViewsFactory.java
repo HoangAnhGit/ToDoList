@@ -43,8 +43,7 @@ public class TaskRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
 
     @Override
     public int getCount() {
-        return taskList != null ? 6 : 0;
-
+        return taskList.isEmpty() ? 0 : 6;
     }
 
     @Override

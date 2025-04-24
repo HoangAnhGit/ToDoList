@@ -51,5 +51,5 @@ dependencies {
     implementation(libs.room.rxjava3)
     annotationProcessor (libs.room.compiler)
     implementation (libs.circleimageview)
-
+    implementation (libs.material.v140)
 }

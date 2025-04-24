@@ -7,11 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.view.OnApplyWindowInsetsListener;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -241,14 +237,6 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
                     .setCancelable(false)
                     .show();
 
-
-/*
-            Snackbar.make(binding.getRoot(), "Task deleted", Snackbar.LENGTH_LONG)
-                    .setAction("Undo", v -> {
-                        taskViewModel.insert(task);
-                    }).show();
-
- */
         }
     }
 }

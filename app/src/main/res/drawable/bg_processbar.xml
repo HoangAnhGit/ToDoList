@@ -1,0 +1,21 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="ring"
+            android:thicknessRatio="15"
+            android:useLevel="false">
+            <solid android:color="@color/light_purple"/> <!-- Màu nền (phần chưa lấp đầy) -->
+        </shape>
+    </item>
+    <item >
+        <rotate
+            android:fromDegrees="-90"
+            android:toDegrees="0">
+            <shape android:shape="ring"
+                android:thicknessRatio="15"
+                android:useLevel="true">
+                <solid android:color="@color/purple"/>
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

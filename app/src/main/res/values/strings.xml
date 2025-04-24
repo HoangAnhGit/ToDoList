@@ -8,7 +8,7 @@
 
 
     <string name="titleFocus">Focus Mode</string>
-    <string name="cancel">Cancel</string>
+    <string name="Stop">Stop</string>
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="txtContinue">Continue</string>
@@ -126,4 +126,5 @@
     <string name="ReminderOneHourBefore">Reminder One Hour Before</string>
 
     <string name="tvWelcome">Không cần hoàn hảo chỉ cần bạn bắt đầu✌️</string>
+
 </resources>

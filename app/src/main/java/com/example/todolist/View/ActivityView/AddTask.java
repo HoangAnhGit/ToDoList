@@ -113,12 +113,20 @@ public class AddTask extends AppCompatActivity {
             if(newTask.getDueTime()==null){
                 newTask.setRepeatFrequency(RepeatFrequency.OFF);
             }
-            if (!title.isEmpty()) {
-                newTask.setTitle(title);
+
+
+            if (title.isEmpty()) {
+                CustomToast.showCustomToastPlus(this, "Ủa alo? Task chưa có tiêu đề kìa đó nghen!",Gravity.BOTTOM,R.drawable.sad);
+                return;
             }
 
+
+            String capitalizedTitle = title.substring(0, 1).toUpperCase() + title.substring(1);
+            newTask.setTitle(capitalizedTitle);
+
             if (!des.isEmpty()) {
-                newTask.setDescription(des);
+                String capitalizedDes = des.substring(0, 1).toUpperCase() + des.substring(1);
+                newTask.setDescription(capitalizedDes);
             }
             taskViewModel.insert(newTask);
             CustomToast.showCustomToast(this,"Create Task Complete");

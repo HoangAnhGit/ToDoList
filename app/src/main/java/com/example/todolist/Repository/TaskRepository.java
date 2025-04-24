@@ -106,4 +106,30 @@ public class TaskRepository {
         });
     }
 
+    // tính toán task mới
+    public Task createRepeatedTask(Task oldTask) {
+        Task newTask = new Task();
+        newTask.setTitle(oldTask.getTitle());
+        newTask.setDescription(oldTask.getDescription());
+        newTask.setColorCode(oldTask.getColorCode());
+        newTask.setIdIcon(oldTask.getIdIcon());
+        newTask.setIdTag(oldTask.getIdTag());
+        newTask.setReminderSetting(oldTask.getReminderSetting());
+        newTask.setRepeatFrequency(oldTask.getRepeatFrequency());
+        newTask.setStatus(TaskStatus.PENDING);
+
+        // Tính toán ngày mới
+        LocalDate oldDate = oldTask.getDueDate();
+        switch (oldTask.getRepeatFrequency()) {
+            case DAILY: newTask.setDueDate(oldDate.plusDays(1)); break;
+            case WEEKLY: newTask.setDueDate(oldDate.plusWeeks(1)); break;
+            case MONTHLY: newTask.setDueDate(oldDate.plusMonths(1)); break;
+            default: newTask.setDueDate(oldDate); break;
+        }
+        newTask.setDueTime(oldTask.getDueTime());
+
+        return newTask;
+    }
+
+
 }

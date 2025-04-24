@@ -35,8 +35,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> im
 
     public interface  onClickItem{
         void onClickTask(Task task);
-
-        //void onClickDeleteTask(Task task);
     }
     private TaskViewModel taskViewModel;
 
@@ -44,7 +42,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> im
     public void setAdapter( Context context,List<Task> mList,TaskViewModel taskViewModel, onClickItem taskItemEventHandler){
         this.context = context;
         this.mList = mList;
-        this.mListOld=mList;
+        this.mListOld = new ArrayList<>(mList);
         this.taskViewModel = taskViewModel;
         this.taskItemEventHandler = taskItemEventHandler;
         notifyDataSetChanged();
@@ -103,10 +101,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> im
         holder.binding.layoutItem.setOnClickListener(view->taskItemEventHandler.onClickTask(task));
 
 
-        //chờ fix đang bị đè sự kiện
-       // holder.binding.layoutBackground.setOnClickListener(view->taskItemEventHandler.onClickDeleteTask(task));
-
-
         //set
         holder.binding.iconTask.setImageResource(task.getIdIcon());
         
@@ -150,7 +144,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> im
                 } else {
                     filteredList = new ArrayList<>();
                     for (Task task : mListOld) {
-                        if (task.getTitle().toLowerCase().contains(strSearch.toLowerCase())) {
+                        String title = task.getTitle();
+                        if (title != null && !title.trim().isEmpty() &&
+                                title.toLowerCase().contains(strSearch.toLowerCase())) {
                             filteredList.add(task);
                         }
                     }

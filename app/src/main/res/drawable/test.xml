@@ -1,0 +1,19 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <vector xmlns:android="http://schemas.android.com/apk/res/android"
+            android:width="360dp"
+            android:height="100dp"
+            android:viewportWidth="360"
+            android:viewportHeight="100">
+            <path
+                android:fillColor="@color/purple"
+                android:pathData="
+          M0,0
+          L360,0
+          L360,50
+          C270,100  90,100  0,50
+          Z"/>
+        </vector>
+
+    </item>
+</layer-list>

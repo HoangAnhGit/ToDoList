@@ -1,16 +1,24 @@
 package com.example.todolist.ViewModel;
 
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
+import com.example.todolist.Model.Enum.ReminderSetting;
 import com.example.todolist.Model.Task;
 import com.example.todolist.Repository.TaskRepository;
+import com.example.todolist.Utils.TaskReminderReceiver;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -122,4 +130,36 @@ public class TaskViewModel extends AndroidViewModel {
     public void refreshOverdueTasks() {
         repository.updateOverdueTasks();
     }
+
+    //reminder
+    public void setReminder(Context context, Task task) {
+        if (task.getDueTime() == null || task.getReminderSetting() == ReminderSetting.NO_REMINDER)
+            return;
+
+        LocalDateTime dateTime = LocalDateTime.of(task.getDueDate(), task.getDueTime());
+
+        switch (task.getReminderSetting()) {
+            case AT_TIME_OF_DUE: dateTime = dateTime; break;
+            case ONE_HOUR_BEFORE: dateTime = dateTime.minusHours(1); break;
+            case FIFTEEN_MINUTES_BEFORE: dateTime = dateTime.minusMinutes(15); break;
+            // thêm các trường hợp khác nếu cần
+        }
+
+        long triggerTime = dateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+
+        Intent intent = new Intent(context, TaskReminderReceiver.class);
+        intent.putExtra("title", task.getTitle());
+        intent.putExtra("taskId", task.getId());
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                task.getId(),
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+    }
+
 }

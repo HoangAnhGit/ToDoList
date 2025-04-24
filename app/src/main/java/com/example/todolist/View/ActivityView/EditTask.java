@@ -137,21 +137,25 @@ public class EditTask extends AppCompatActivity {
     }
 
     private void setupUI() {
-        binding.btnBack.setOnClickListener(v -> {
-            finish();
-        });
+        binding.btnBack.setOnClickListener(v -> finish());
         binding.btnSave.setOnClickListener(v -> {
             String title = Objects.requireNonNull(binding.titleEdittext.getText()).toString().trim();
             String des = Objects.requireNonNull(binding.descriptionEdittext.getText()).toString().trim();
             if (taskEdit.getDueTime() == null) {
                 taskEdit.setRepeatFrequency(RepeatFrequency.OFF);
             }
-            if (!title.isEmpty()) {
-                taskEdit.setTitle(title);
+            if (title.isEmpty()) {
+                CustomToast.showCustomToastPlus(this, "Chưa có tiêu đề thì tui biết làm gì giờ?",Gravity.BOTTOM,R.drawable.sad);
+                return;
             }
 
+            String capitalizedTitle = title.substring(0, 1).toUpperCase() + title.substring(1);
+            taskEdit.setTitle(capitalizedTitle);
+
+
             if (!des.isEmpty()) {
-                taskEdit.setDescription(des);
+                String capitalizedDes = des.substring(0, 1).toUpperCase() + des.substring(1);
+                taskEdit.setDescription(capitalizedDes);
             }
             taskViewModel.update(taskEdit);
             CustomToast.showCustomToast(this, "Update Task Complete");

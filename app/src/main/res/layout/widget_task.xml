@@ -17,14 +17,9 @@
         android:stretchMode="columnWidth"
         android:gravity="center" />
 
-    <TextView
+    <include
         android:id="@+id/widget_empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Không có nhiệm vụ cho ngày hôm nay"
-        android:gravity="center"
-        android:visibility="gone"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:padding="8dp" />
+        layout="@layout/widget_empty"
+        android:visibility="gone" />
+
 </LinearLayout>

@@ -2,10 +2,12 @@ package com.example.todolist.Widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.example.todolist.Database.AppDatabase;
+import com.example.todolist.Model.Enum.TaskStatus;
 import com.example.todolist.Model.Task;
 import com.example.todolist.R;
 
@@ -41,7 +43,8 @@ public class TaskRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
 
     @Override
     public int getCount() {
-        return 6;
+        return taskList != null ? 6 : 0;
+
     }
 
     @Override
@@ -52,8 +55,17 @@ public class TaskRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
             Task task = taskList.get(position);
             views.setTextViewText(R.id.txtTitle, task.getTitle());
 
-            // Gán icon nếu có (ở đây mặc định)
+            // Gán icon
             views.setImageViewResource(R.id.iconTask, task.getIdIcon());
+
+            // Gán trạng thái hoàn thành
+            if (task.getStatus() == TaskStatus.COMPLETED) {
+                views.setViewVisibility(R.id.iconComplete, View.VISIBLE);
+                views.setViewVisibility(R.id.iconNotComplete, View.GONE);
+            } else {
+                views.setViewVisibility(R.id.iconComplete, View.GONE);
+                views.setViewVisibility(R.id.iconNotComplete, View.VISIBLE);
+            }
 
             // Truyền Task ID để mở chi tiết
             Intent fillInIntent = new Intent();

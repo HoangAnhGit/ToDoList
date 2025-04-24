@@ -2,13 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_task_widget"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:orientation="horizontal"
     android:padding="8dp"
-    android:background="@drawable/bg_radius_32_red"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_widget_item">
 
-    <!-- Icon nhiệm vụ (nếu bạn muốn hiển thị) -->
     <ImageView
         android:id="@+id/iconTask"
         android:layout_width="24dp"
@@ -17,7 +16,6 @@
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/txtImg" />
 
-    <!-- Tiêu đề nhiệm vụ -->
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="0dp"
@@ -25,7 +23,27 @@
         android:layout_weight="1"
         android:text="Tiêu đề nhiệm vụ"
         android:textColor="@android:color/black"
-        android:textSize="14sp"
+        android:textSize="11sp"
         android:maxLines="2"
         android:ellipsize="end" />
+
+    <ImageView
+        android:id="@+id/iconNotComplete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="4dp"
+        android:src="@mipmap/not_complete"
+        android:visibility="gone"
+        android:contentDescription="@string/txtImg" />
+
+    <ImageView
+        android:id="@+id/iconComplete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="4dp"
+        android:src="@mipmap/complete"
+        android:visibility="gone"
+        android:contentDescription="@string/txtImg" />
 </LinearLayout>

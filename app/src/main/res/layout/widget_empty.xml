@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_empty_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="@drawable/bg_widget_item"
+    android:backgroundTint="@color/light_gray">
+
+    <ImageView
+        android:id="@+id/empty_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/rafiki"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/empty_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Task Today"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:paddingTop="8dp" />
+</LinearLayout>

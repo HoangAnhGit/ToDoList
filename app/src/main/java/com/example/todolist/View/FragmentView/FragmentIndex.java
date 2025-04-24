@@ -34,6 +34,7 @@ import com.example.todolist.View.ActivityView.EditTask;
 import com.example.todolist.View.rcv.FilterAdapter;
 import com.example.todolist.View.rcv.TaskAdapter;
 import com.example.todolist.ViewModel.TaskViewModel;
+import com.example.todolist.Widget.WidgetBroadcastHelper;
 import com.example.todolist.databinding.DialogDeltailTaskBinding;
 import com.example.todolist.databinding.FragmentIndexBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;

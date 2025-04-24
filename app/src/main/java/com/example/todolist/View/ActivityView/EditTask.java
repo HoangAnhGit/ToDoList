@@ -35,6 +35,7 @@ import com.example.todolist.ViewModel.TaskViewModel;
 import com.example.todolist.databinding.ActivityEditTaskBinding;
 import com.example.todolist.databinding.DialogReminderBinding;
 import com.example.todolist.databinding.DialogRepeatBinding;
+import com.example.todolist.Widget.WidgetBroadcastHelper;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -153,6 +154,10 @@ public class EditTask extends AppCompatActivity {
                 taskEdit.setDescription(des);
             }
             taskViewModel.update(taskEdit);
+
+            //Gọi cập nhật widget ngay sau khi sửa Task
+            WidgetBroadcastHelper.notifyWidgetDataChanged(getApplicationContext());
+
             CustomToast.showCustomToast(this, "Update Task Complete");
 
             finish();

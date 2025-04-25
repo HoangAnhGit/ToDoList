@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/o"
-                android:padding="8dp"
+                android:padding="16dp"
                 android:layout_marginBottom="24dp"
                 style="@style/TextHeading"
                 app:layout_constraintBottom_toTopOf="@+id/txtTaskComplete"

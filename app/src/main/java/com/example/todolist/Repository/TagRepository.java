@@ -35,4 +35,8 @@ public class TagRepository {
     public void insert(Tag tag) {
         Executors.newSingleThreadExecutor().execute(() -> tagDao.insertTag(tag));
     }
+
+    public void deleteAllTag(){
+        Executors.newSingleThreadExecutor().execute(tagDao::deleteAll);
+    }
 }

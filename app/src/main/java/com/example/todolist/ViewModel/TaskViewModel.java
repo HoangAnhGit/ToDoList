@@ -138,6 +138,22 @@ public class TaskViewModel extends AndroidViewModel {
     }
 
 
+    //setting
+    public LiveData<Integer> getTotalTaskCount() {
+        return Transformations.map(allTasks, tasks -> tasks != null ? tasks.size() : 0);
+    }
+
+    public LiveData<Integer> getCompletedTaskCount() {
+        return Transformations.map(allTasks, tasks -> {
+            if (tasks == null) return 0;
+            int count = 0;
+            for (Task task : tasks) {
+                if (task.getStatus().name().equals("COMPLETED")) count++;
+            }
+            return count;
+        });
+    }
+
 
 
 }

@@ -17,8 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvToast"
+        android:layout_gravity="center"
         android:layout_marginStart="8dp"
-        style="@style/Base.TextAppearance.AppCompat.Body2.Bold"
+        style="@style/Base.TextAppearance.AppCompat.Caption.Bold"
         android:text="@string/detailReminder"/>
 
 </LinearLayout>

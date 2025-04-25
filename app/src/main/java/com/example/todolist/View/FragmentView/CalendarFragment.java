@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.example.todolist.Model.Task;
 import com.example.todolist.R;
 import com.example.todolist.Utils.CalendarUtils;
 import com.example.todolist.Utils.CoverString;
+import com.example.todolist.Utils.CustomToast;
 import com.example.todolist.Utils.DateUtils;
 import com.example.todolist.Utils.ItemTouchHelperListener;
 import com.example.todolist.Utils.RecyclerViewItemTouchHelper;
@@ -78,7 +80,6 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
         return mView;
     }
 
-
     private void openDetailDialog(Task task) {
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
 
@@ -121,6 +122,24 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
             binding.iconNotComplete.setVisibility(isCompleted ? View.GONE : View.VISIBLE);
 
         }
+
+        binding.iconComplete.setOnClickListener(view -> {
+            task.setStatus(TaskStatus.PENDING);
+            taskViewModel.update(task);
+            binding.iconComplete.setVisibility(View.GONE);
+            binding.iconNotComplete.setVisibility(View.VISIBLE);
+        });
+
+        binding.iconNotComplete.setOnClickListener(view -> {
+            if (!task.getDueDate().isAfter(LocalDate.now())) {
+                task.setStatus(TaskStatus.COMPLETED);
+                taskViewModel.update(task);
+                binding.iconComplete.setVisibility(View.VISIBLE);
+                binding.iconNotComplete.setVisibility(View.GONE);
+            } else {
+                CustomToast.showCustomToastPlus(context,"Let's focus today", Gravity.BOTTOM,R.drawable.hi);
+            }
+        });
 
         binding.btnEdit.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), EditTask.class);
@@ -230,19 +249,4 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
         }
     }
 
-    private void waitFix(){
-        taskViewModel.getFilteredTaskIndex().observe(getViewLifecycleOwner(), tasks -> {
-            taskAdapter.setAdapter(getContext(), tasks, taskViewModel, new TaskAdapter.onClickItem() {
-                @Override
-                public void onClickTask(Task task) {
-
-                }
-
-//                @Override
-//                public void onClickDeleteTask(Task task) {
-//                    taskViewModel.delete(task);
-//                }
-            });
-        });
-    }
 }

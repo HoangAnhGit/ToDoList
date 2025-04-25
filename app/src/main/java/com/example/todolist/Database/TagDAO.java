@@ -23,6 +23,9 @@ public interface TagDAO {
     int deleteTag(Tag tag);
 
     @Query("DELETE FROM tag")
+    void deleteAll();
+
+    @Query("DELETE FROM tag")
     void deleteAllTags();
 
     @Query("SELECT * FROM tag ")

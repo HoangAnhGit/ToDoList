@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="60dp"
+    android:layout_height="100dp"
+    android:layout_marginVertical="4dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="24dp"
-    android:layout_marginHorizontal="8dp"
+    app:cardCornerRadius="16dp"
+    android:layout_marginHorizontal="6dp"
     android:id="@+id/item_day">
 
     <LinearLayout
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:padding="16dp">
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/DayInWeek"
@@ -30,13 +31,13 @@
 
             <TextView
                 android:id="@+id/day"
-                style="@style/Base.TextAppearance.AppCompat.Caption."
+                style="@style/Base.TextAppearance.AppCompat.Caption.Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/bg_number_day"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="16dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="12dp"
                 android:text="@string/o"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -57,9 +58,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
-
-
-
 
 
 </androidx.cardview.widget.CardView>

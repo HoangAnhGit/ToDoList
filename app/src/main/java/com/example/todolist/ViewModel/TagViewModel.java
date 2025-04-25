@@ -58,5 +58,8 @@ public class TagViewModel extends AndroidViewModel {
         repository.insert(tag);
     }
 
+    public void deleteAll(){
+        repository.deleteAllTag();
+    }
 
 }

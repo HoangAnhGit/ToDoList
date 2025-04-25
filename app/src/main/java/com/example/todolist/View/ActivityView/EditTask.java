@@ -59,7 +59,7 @@ public class EditTask extends AppCompatActivity {
 
     private ActivityEditTaskBinding binding;
     private Task taskEdit;
-    private Tag tagSelected;
+    private Tag tagSelected = null;
     private TaskViewModel taskViewModel;
     private TagViewModel tagViewModel;
 
@@ -84,10 +84,10 @@ public class EditTask extends AppCompatActivity {
                                 binding.selectedTagText.setText(tagSelected.getTitle());
                                 taskEdit.setIdTag(tagSelected.getUid());
                             } else {
-                                Log.e("AddTask", "Tag is null");
+                                Log.e("EditTask", "Tag is null");
                             }
                         } else {
-                            Log.e("AddTask", "No 'tag' key in bundle");
+                            Log.e("EditTask", "No 'tag' key in bundle");
                         }
                     }
                 }
@@ -145,7 +145,7 @@ public class EditTask extends AppCompatActivity {
                 taskEdit.setRepeatFrequency(RepeatFrequency.OFF);
             }
             if (title.isEmpty()) {
-                CustomToast.showCustomToastPlus(this, "Chưa có tiêu đề thì tui biết làm gì giờ?",Gravity.BOTTOM,R.drawable.sad);
+                CustomToast.showCustomToastPlus(this, "Chưa có tiêu đề thì tui biết làm gì giờ?", Gravity.BOTTOM, R.drawable.sad);
                 return;
             }
 
@@ -159,7 +159,6 @@ public class EditTask extends AppCompatActivity {
             }
             taskViewModel.update(taskEdit);
             CustomToast.showCustomToast(this, "Update Task Complete");
-
             finish();
         });
         binding.pickDate.setOnClickListener(v -> setupPickDateButton());
@@ -171,9 +170,10 @@ public class EditTask extends AppCompatActivity {
         binding.layoutTag.setOnClickListener(v -> {
             Intent tagIntent = new Intent(this, TagActivity.class);
             Bundle bundle = new Bundle();
+            tagIntent.putExtra("Value_Color",taskEdit.getColorCode());
 
-            tagIntent.putExtra("Value_Color", taskEdit.getColorCode());
-            bundle.putSerializable("TAG_SELECT", tagSelected);
+            Tag tagSelecting = new TagViewModel(getApplication()).getTagByID(taskEdit.getIdTag());
+            bundle.putSerializable("TAG_SELECT",tagSelecting);
             tagIntent.putExtras(bundle);
             intentActivityResultLauncher.launch(tagIntent);
         });
@@ -197,7 +197,6 @@ public class EditTask extends AppCompatActivity {
         bindingRepeat.weekly.setText("Weekly (" + dayOfWeek + ")");
         bindingRepeat.monthly.setText("Monthly (On " + dayWithSuffix + ")");
 
-        //
         switch (taskEdit.getRepeatFrequency()) {
             case OFF:
                 bindingRepeat.repeatOptions.check(R.id.noRepeat);
@@ -214,7 +213,6 @@ public class EditTask extends AppCompatActivity {
         }
 
 
-        //TODO
         bindingRepeat.repeatOptions.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.noRepeat) {
                 binding.selectedRepeatText.setText(bindingRepeat.noRepeat.getText().toString());
@@ -241,7 +239,7 @@ public class EditTask extends AppCompatActivity {
 
     private void showReminderDialog() {
         if (taskEdit.getDueTime() == null) {
-            CustomToast.showCustomToastPlus(this, "Please select a time before setting a reminder.", Gravity.BOTTOM,R.drawable.hi);
+            CustomToast.showCustomToastPlus(this, "Please select a time before setting a reminder.", Gravity.BOTTOM, R.drawable.hi);
             return;
         }
 
@@ -430,4 +428,5 @@ public class EditTask extends AppCompatActivity {
 
         dialog.show();
     }
+
 }

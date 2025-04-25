@@ -1,7 +1,87 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.ToDoList" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:windowFullscreen">true</item>
     </style>
+
+
+    <color name="textPrimary">@color/white</color>
+
+    <style name="Theme.ToDoList" parent="Base.Theme.ToDoList" />
+
+    <style name="ShapeAppearanceOverlay.MyApp.FloatingActionButton" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+
+    <style name="MyCounterTextStyle" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">#FF5722</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Base.TextAppearance.AppCompat.Caption.Bold">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="fontFamily">@font/bold</item>
+    </style>
+
+    <style name="Base.TextAppearance.AppCompat.Caption.">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textPrimary</item>
+    </style>
+
+    <style name="Base.TextAppearance.AppCompat.Body1.">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="fontFamily">@font/regular</item>
+    </style>
+
+    <style name="Base.TextAppearance.AppCompat.Body1.Bold">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="fontFamily">@font/bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="Base.TextAppearance.AppCompat.Body2.">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="fontFamily">@font/regular</item>
+    </style>
+
+    <style name="Base.TextAppearance.AppCompat.Body2.Bold">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="fontFamily">@font/bold</item>
+    </style>
+
+    <style name="Base.TextAppearance.AppCompat.Widget.Button.text">
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/regular</item>
+    </style>
+
+    <style name="TextHeading">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="fontFamily">@font/bold</item>
+    </style>
+
+    <style name="TextButton">
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:fontFamily">@font/regular</item>
+
+    </style>
+
+    <style name="CustomNumberPicker">
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+
+
 </resources>

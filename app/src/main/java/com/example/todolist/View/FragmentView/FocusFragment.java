@@ -1,9 +1,11 @@
 package com.example.todolist.View.FragmentView;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +53,7 @@ public class FocusFragment extends Fragment {
 
 //            Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
 //            startActivity(intent);
+
             FocusModeService.setFocusMode(true);
 
             viewModel.startTimer(millis);

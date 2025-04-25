@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.example.todolist.Model.Enum.TimeFilter;
 import com.example.todolist.Model.Task;
 import com.example.todolist.R;
 import com.example.todolist.Utils.CoverString;
+import com.example.todolist.Utils.CustomToast;
 import com.example.todolist.Utils.DateUtils;
 import com.example.todolist.Utils.ItemTouchHelperListener;
 import com.example.todolist.Utils.RecyclerViewItemTouchHelper;
@@ -39,6 +41,7 @@ import com.example.todolist.databinding.FragmentIndexBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -92,13 +95,11 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
         );
 
 
-
-        if(task.getStatus()==TaskStatus.OVERDUE){
-            String strNote = "Noted on "+DateUtils.getDayLabel(task.getDueDate());
+        if (task.getStatus() == TaskStatus.OVERDUE) {
+            String strNote = "Noted on " + DateUtils.getDayLabel(task.getDueDate());
             binding.txtDes.setText(strNote);
             binding.txtStatusTask.setVisibility(View.GONE);
-        }
-        else{
+        } else {
 
             binding.txtDes.setText(task.getDescription());
             binding.iconTask.setImageResource(task.getIdIcon());
@@ -113,6 +114,24 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
             binding.iconNotComplete.setVisibility(isCompleted ? View.GONE : View.VISIBLE);
 
         }
+
+        binding.iconComplete.setOnClickListener(view -> {
+            task.setStatus(TaskStatus.PENDING);
+            taskViewModel.update(task);
+            binding.iconComplete.setVisibility(View.GONE);
+            binding.iconNotComplete.setVisibility(View.VISIBLE);
+        });
+
+        binding.iconNotComplete.setOnClickListener(view -> {
+            if (!task.getDueDate().isAfter(LocalDate.now())) {
+                task.setStatus(TaskStatus.COMPLETED);
+                taskViewModel.update(task);
+                binding.iconComplete.setVisibility(View.VISIBLE);
+                binding.iconNotComplete.setVisibility(View.GONE);
+            } else {
+                CustomToast.showCustomToastPlus(context, "Let's focus today", Gravity.BOTTOM, R.drawable.hi);
+            }
+        });
 
 
         binding.btnEdit.setOnClickListener(v -> {
@@ -141,7 +160,7 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
             taskViewModel.setFilter(filter);
         });
 
-        //taskViewModel.deleteAll();
+
 
         //khởi động rcv của task
         binding.rcvTask.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -152,6 +171,14 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
             taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog);
             String guess = "Bạn có " + tasks.size() + " nhiệm vụ";
             binding.txtGuess.setText(guess);
+
+            if (tasks.isEmpty()) {
+                binding.LayoutNoTask.setVisibility(View.VISIBLE);
+                binding.rcvTask.setVisibility(View.GONE);
+            } else {
+                binding.LayoutNoTask.setVisibility(View.GONE);
+                binding.rcvTask.setVisibility(View.VISIBLE);
+            }
         });
 
 

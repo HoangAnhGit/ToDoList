@@ -2,6 +2,8 @@ package com.example.todolist.ViewModel;
 
 
 import android.app.Application;
+import android.util.Log;
+
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -30,6 +32,10 @@ public class TagViewModel extends AndroidViewModel {
     }
 
     public void initDefaultTag() {
+        Tag noTag = new Tag("No tag");
+        repository.insert(noTag);
+        Log.e("test tag", "Inserted 'No tag' with idTag: " + noTag.getUid());
+
         String[] text = getApplication().getResources().getStringArray(R.array.default_tag);
         for (String tagName : text) {
             repository.insert(new Tag(tagName));

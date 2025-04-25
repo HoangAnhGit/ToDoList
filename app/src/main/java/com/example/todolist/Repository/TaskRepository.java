@@ -41,6 +41,10 @@ public class TaskRepository {
         Executors.newSingleThreadExecutor().execute(() -> taskDao.insertTask(task));
     }
 
+    public long insertLong(Task task) {
+        return taskDao.insertTask(task);
+    }
+
     public void delete(Task task) {
         Executors.newSingleThreadExecutor().execute(() -> taskDao.deleteTask(task));
     }
@@ -118,7 +122,6 @@ public class TaskRepository {
         newTask.setRepeatFrequency(oldTask.getRepeatFrequency());
         newTask.setStatus(TaskStatus.PENDING);
 
-        // Tính toán ngày mới
         LocalDate oldDate = oldTask.getDueDate();
         switch (oldTask.getRepeatFrequency()) {
             case DAILY: newTask.setDueDate(oldDate.plusDays(1)); break;

@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity(tableName = "tag")
 public class Tag implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = true )
     private int uid;
 
     private String title;

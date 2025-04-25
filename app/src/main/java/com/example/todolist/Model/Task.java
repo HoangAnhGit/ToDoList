@@ -55,7 +55,7 @@ public class Task implements Serializable {
         this.dueTime = null;
         this.reminderSetting = ReminderSetting.NO_REMINDER;
         this.repeatFrequency = RepeatFrequency.OFF;
-        this.idTag = 6 ;
+        this.idTag = 1 ;
     }
 
 

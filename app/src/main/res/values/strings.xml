@@ -117,8 +117,9 @@
         <item>Workout</item>
         <item>Relationship</item>
         <item>Sleep</item>
-        <item>No tag</item>
     </array>
+    }
+
     
     <string name="NoReminder">No Reminder</string>
     <string name="ReminderAtEvent">Remind At Event</string>

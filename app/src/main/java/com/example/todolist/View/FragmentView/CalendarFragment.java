@@ -114,7 +114,7 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
 
             CoverString coverString = new CoverString();
             String toStringStatus = coverString.RepeatToString(task.getRepeatFrequency(), task.getDueDate()) + " , " + coverString.Reminder(task.getReminderSetting(), task.getDueTime());
-            binding.txtStatusTask.setText(toStringStatus);
+            binding.txtStatusTask.setText(coverString.Reminder(task.getReminderSetting(), task.getDueTime()));
 
 
             boolean isCompleted = task.getStatus().equals(TaskStatus.COMPLETED);
@@ -184,8 +184,18 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
             new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(binding.rcvTask);
 
             //main
-            taskViewModel.filteredTasksIdTagDate().observe(getViewLifecycleOwner(), tasks -> taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog));
+            taskViewModel.filteredTasksIdTagDate().observe(getViewLifecycleOwner(), tasks -> {
 
+                taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog);
+
+                if (tasks.isEmpty()) {
+                    binding.LayoutNoTask.setVisibility(View.VISIBLE);
+                    binding.rcvTask.setVisibility(View.GONE);
+                } else {
+                    binding.LayoutNoTask.setVisibility(View.GONE);
+                    binding.rcvTask.setVisibility(View.VISIBLE);
+                }
+            });
         });
     }
 

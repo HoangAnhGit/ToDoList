@@ -33,8 +33,8 @@ public class TagViewModel extends AndroidViewModel {
 
     public void initDefaultTag() {
         Tag noTag = new Tag("No tag");
+        noTag.setUid(1);
         repository.insert(noTag);
-        Log.e("test tag", "Inserted 'No tag' with idTag: " + noTag.getUid());
 
         String[] text = getApplication().getResources().getStringArray(R.array.default_tag);
         for (String tagName : text) {

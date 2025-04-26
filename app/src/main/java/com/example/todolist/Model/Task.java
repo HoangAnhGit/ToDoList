@@ -36,6 +36,8 @@ public class Task implements Serializable {
 
     private TaskStatus status = TaskStatus.PENDING;
 
+  //  private Long parentRepeatId;
+
 
     @ColumnInfo(name = "tag_id")
     private int idTag ;
@@ -166,6 +168,7 @@ public class Task implements Serializable {
                 '}';
     }
 
+
     public boolean isOverdueNow() {
         if (status != TaskStatus.PENDING) return false;
 
@@ -173,8 +176,6 @@ public class Task implements Serializable {
         LocalTime now = LocalTime.now();
 
         if (dueDate.isBefore(today)) return true;
-        if (dueDate.isEqual(today) && dueTime != null && dueTime.isBefore(now)) return true;
-
-        return false;
+        return dueDate.isEqual(today) && dueTime != null && dueTime.isBefore(now);
     }
 }

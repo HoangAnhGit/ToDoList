@@ -4,7 +4,7 @@
     <string name="home">Home</string>
     <string name="calendar">Calendar</string>
     <string name="focus">Focus</string>
-    <string name="profile">Profile</string>
+    <string name="profile">Settings</string>
 
 
     <string name="titleFocus">Focus Mode</string>
@@ -88,7 +88,7 @@
     <string name="txtImg">Text IMG</string>
     <string name="txtLayout">Text Layout</string>
 
-    <string name="Hi">Hi, User</string>
+    <string name="Hi">Xin chào!</string>
     <string name="hiBody">Today you have 5 tasks </string>
     <string name="Search">Search . . . </string>
     <!-- Strings used for fragments for navigation -->
@@ -98,7 +98,7 @@
     <string name="previous">Previous</string>
 
 
-    <string name="signUp">Sign up or log in </string>
+    <string name="signUp">WellCome !!</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

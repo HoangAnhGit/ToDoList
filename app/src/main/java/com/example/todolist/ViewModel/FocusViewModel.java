@@ -11,6 +11,9 @@ public class FocusViewModel extends ViewModel {
     private final MutableLiveData<Integer> selectedIndex = new MutableLiveData<>(2);
 
     private CountDownTimer timer;
+
+    private final MutableLiveData<Boolean> _timerFinished = new MutableLiveData<>(false);
+    public LiveData<Boolean> getTimerFinished() { return _timerFinished; }
     private long endTime;
 
     public LiveData<Long> getTimeLeft() { return timeLeft; }
@@ -19,6 +22,10 @@ public class FocusViewModel extends ViewModel {
 
     public void setSelectedIndex(int index) {
         selectedIndex.setValue(index);
+    }
+
+    public void resetTimerFinished() {
+        _timerFinished.setValue(false);
     }
 
     public void startTimer(long millis) {
@@ -33,6 +40,7 @@ public class FocusViewModel extends ViewModel {
             public void onFinish() {
                 timeLeft.postValue(0L);
                 isRunning.postValue(false);
+                _timerFinished.postValue(true);
             }
         }.start();
         isRunning.setValue(true);

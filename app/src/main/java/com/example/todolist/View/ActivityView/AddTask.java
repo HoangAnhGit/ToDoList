@@ -56,7 +56,7 @@ public class AddTask extends AppCompatActivity {
 
     private ActivityAddTaskBinding binding;
     private Task newTask;
-    private Tag tagSelected =null;
+    private Tag tagSelected =null ;
     private TaskViewModel taskViewModel;
     private final ActivityResultLauncher<Intent> intentActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -98,10 +98,11 @@ public class AddTask extends AppCompatActivity {
         setContentView(mview);
         newTask = new Task(mview.getContext());
 
-
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+        TagViewModel tagViewModel = new ViewModelProvider(this).get(TagViewModel.class);
+        tagSelected = tagViewModel.getTagByID(newTask.getIdTag());
+
         setupUI();
-        initData();
         initColor();
     }
 
@@ -110,10 +111,10 @@ public class AddTask extends AppCompatActivity {
         binding.btnCreate.setOnClickListener(v -> {
             String title = Objects.requireNonNull(binding.titleEdittext.getText()).toString().trim();
             String des = Objects.requireNonNull(binding.descriptionEdittext.getText()).toString().trim();
+            Log.e("AddTask","1"+ newTask.toString());
             if(newTask.getDueTime()==null){
                 newTask.setRepeatFrequency(RepeatFrequency.OFF);
             }
-
 
             if (title.isEmpty()) {
                 CustomToast.showCustomToastPlus(this, "Ủa alo? Task chưa có tiêu đề kìa đó nghen!",Gravity.BOTTOM,R.drawable.sad);
@@ -150,9 +151,7 @@ public class AddTask extends AppCompatActivity {
         });
     }
 
-    private void initData(){
 
-    }
     private void pickTime() {
         binding.layoutTime.setOnClickListener(view -> {
             int initialHour = (newTask.getDueTime() != null) ? newTask.getDueTime().getHour() : 10;

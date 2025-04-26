@@ -133,6 +133,7 @@ public class EditTask extends AppCompatActivity {
         binding.selectedTimeText.setText(task.getDueTime() != null ? task.getDueTime().format(formatter) : "Any time");
         binding.selectedReminderText.setText(coverString.Reminder(task.getReminderSetting(), task.getDueTime()));
         tagSelected = tagViewModel.getTagByID(task.getIdTag());
+
         binding.selectedTagText.setText(tagSelected.getTitle());
     }
 

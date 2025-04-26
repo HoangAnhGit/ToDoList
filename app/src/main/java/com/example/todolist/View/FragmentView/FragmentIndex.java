@@ -106,7 +106,7 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
 
             CoverString coverString = new CoverString();
             String toStringStatus = coverString.RepeatToString(task.getRepeatFrequency(), task.getDueDate()) + " , " + coverString.Reminder(task.getReminderSetting(), task.getDueTime());
-            binding.txtStatusTask.setText(toStringStatus);
+            binding.txtStatusTask.setText(coverString.Reminder(task.getReminderSetting(), task.getDueTime()));
 
 
             boolean isCompleted = task.getStatus().equals(TaskStatus.COMPLETED);

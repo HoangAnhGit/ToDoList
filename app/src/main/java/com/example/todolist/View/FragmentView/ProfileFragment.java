@@ -31,18 +31,19 @@ public class ProfileFragment extends Fragment {
     private TaskViewModel taskViewModel;
     private TagViewModel tagViewModel;
     private Context context;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        tagViewModel =  new ViewModelProvider(this).get(TagViewModel.class);
+        tagViewModel = new ViewModelProvider(this).get(TagViewModel.class);
         View mView = binding.getRoot();
 
         context = getContext();
-       initData();
-       setDarkMode(false);
+        initData();
+        setDarkMode(false);
 
         return mView;
     }
@@ -78,7 +79,7 @@ public class ProfileFragment extends Fragment {
                 String text = input.getText().toString().trim();
                 if (text.equalsIgnoreCase("RESET")) {
                     taskViewModel.deleteAll();
-                    tagViewModel.deleteAll();
+                   // tagViewModel.deleteAll();
                     Toast.makeText(context, "All tasks have been deleted", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 } else {
@@ -89,6 +90,7 @@ public class ProfileFragment extends Fragment {
 
         dialog.show();
     }
+
     public void setDarkMode(boolean isDarkMode) {
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

@@ -10,6 +10,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.todolist.Model.Enum.ReminderSetting;
+import com.example.todolist.Model.Enum.RepeatFrequency;
 import com.example.todolist.Model.Task;
 
 import java.time.LocalDateTime;
@@ -71,6 +72,14 @@ public class TaskScheduler {
         }
     }
 
+    private static long getRepeatInterval(RepeatFrequency repeatFrequency) {
+        switch (repeatFrequency) {
+            case DAILY: return AlarmManager.INTERVAL_DAY;
+            case WEEKLY: return AlarmManager.INTERVAL_DAY * 7;
+            case MONTHLY: return AlarmManager.INTERVAL_DAY * 30;
+            default: return 0;
+        }
+    }
     public static  void cancelReminder(@NonNull Context context, int taskId) {
         if (taskId == 0) return;
 

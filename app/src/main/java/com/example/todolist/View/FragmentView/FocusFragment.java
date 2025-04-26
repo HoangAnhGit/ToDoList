@@ -1,20 +1,27 @@
 package com.example.todolist.View.FragmentView;
-import android.content.Intent;
+import android.app.Notification;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
 
 
+import com.example.todolist.R;
 import com.example.todolist.Utils.FocusModeService;
+import com.example.todolist.Utils.MyApplicationChanel;
 import com.example.todolist.ViewModel.FocusViewModel;
 import com.example.todolist.databinding.FragmentFocusBinding;
+
+import java.util.Date;
 
 public class FocusFragment extends Fragment {
 
@@ -103,6 +110,33 @@ public class FocusFragment extends Fragment {
                 binding.selectedNumber.setValue(idx);
             }
         });
+
+        viewModel.getTimerFinished().observe(getViewLifecycleOwner(), finished -> {
+            if (Boolean.TRUE.equals(finished)) {
+                sendFocusFinishedNotification();
+                viewModel.resetTimerFinished();
+            }
+        });
+    }
+
+    private void sendFocusFinishedNotification() {
+        Notification notification = new NotificationCompat.Builder(requireContext(), MyApplicationChanel.CHANNEL_ID)
+                .setContentTitle("Focus Time hoàn thành!")
+                .setContentText("Bạn đã hoàn thành phiên tập trung. Thư giãn một chút nhé!")
+                .setSmallIcon(R.drawable.logo)
+                .setAutoCancel(true)
+                .build();
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(requireContext());
+        if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        notificationManagerCompat.notify(getNotificationId(), notification);
+    }
+
+    private int getNotificationId() {
+        return (int) new Date().getTime();
     }
 
     private void updateCountdownText(long timeLeftInMillis) {

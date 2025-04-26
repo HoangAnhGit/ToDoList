@@ -115,12 +115,17 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
             CoverString coverString = new CoverString();
             String toStringStatus = coverString.RepeatToString(task.getRepeatFrequency(), task.getDueDate()) + " , " + coverString.Reminder(task.getReminderSetting(), task.getDueTime());
             binding.txtStatusTask.setText(coverString.Reminder(task.getReminderSetting(), task.getDueTime()));
+        }
 
 
-            boolean isCompleted = task.getStatus().equals(TaskStatus.COMPLETED);
-            binding.iconComplete.setVisibility(isCompleted ? View.VISIBLE : View.GONE);
-            binding.iconNotComplete.setVisibility(isCompleted ? View.GONE : View.VISIBLE);
+        boolean isCompleted = task.getStatus() == TaskStatus.COMPLETED;
 
+        if (isCompleted) {
+            binding.iconComplete.setVisibility(View.VISIBLE);
+            binding.iconNotComplete.setVisibility(View.GONE);
+        } else {
+            binding.iconComplete.setVisibility(View.GONE);
+            binding.iconNotComplete.setVisibility(View.VISIBLE);
         }
 
         binding.iconComplete.setOnClickListener(view -> {
@@ -137,7 +142,7 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
                 binding.iconComplete.setVisibility(View.VISIBLE);
                 binding.iconNotComplete.setVisibility(View.GONE);
             } else {
-                CustomToast.showCustomToastPlus(context,"Let's focus today", Gravity.BOTTOM,R.drawable.hi);
+                CustomToast.showCustomToastPlus(context, "Let's focus today", Gravity.BOTTOM, R.drawable.hi);
             }
         });
 
@@ -188,6 +193,7 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
 
                 taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog);
 
+                taskViewModel.refreshOverdueTasks();
                 if (tasks.isEmpty()) {
                     binding.LayoutNoTask.setVisibility(View.VISIBLE);
                     binding.rcvTask.setVisibility(View.GONE);

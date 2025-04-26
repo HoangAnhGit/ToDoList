@@ -107,12 +107,16 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
             CoverString coverString = new CoverString();
             String toStringStatus = coverString.RepeatToString(task.getRepeatFrequency(), task.getDueDate()) + " , " + coverString.Reminder(task.getReminderSetting(), task.getDueTime());
             binding.txtStatusTask.setText(coverString.Reminder(task.getReminderSetting(), task.getDueTime()));
+        }
 
+        boolean isCompleted = task.getStatus() == TaskStatus.COMPLETED;
 
-            boolean isCompleted = task.getStatus().equals(TaskStatus.COMPLETED);
-            binding.iconComplete.setVisibility(isCompleted ? View.VISIBLE : View.GONE);
-            binding.iconNotComplete.setVisibility(isCompleted ? View.GONE : View.VISIBLE);
-
+        if (isCompleted) {
+            binding.iconComplete.setVisibility(View.VISIBLE);
+            binding.iconNotComplete.setVisibility(View.GONE);
+        } else {
+            binding.iconComplete.setVisibility(View.GONE);
+            binding.iconNotComplete.setVisibility(View.VISIBLE);
         }
 
         binding.iconComplete.setOnClickListener(view -> {
@@ -171,6 +175,8 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
             taskAdapter.setAdapter(getContext(), tasks, taskViewModel, this::openDetailDialog);
             String guess = "Bạn có " + tasks.size() + " nhiệm vụ";
             binding.txtGuess.setText(guess);
+
+            taskViewModel.refreshOverdueTasks();
 
             if (tasks.isEmpty()) {
                 binding.LayoutNoTask.setVisibility(View.VISIBLE);

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ứng dụng giúp bạn tạo, quản lý và hoàn thành công việc hàng ngày một cách dễ dàng."
+            style="@style/Base.TextAppearance.AppCompat.Body1.Bold"
+            android:paddingBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tv_create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tạo task mới: Nhấn nút '+' để tạo task, chọn icon, màu nền, tiêu đề, mô tả, ngày giờ, chế độ lặp lại, hẹn giờ và gắn tag."
+            style="@style/Base.TextAppearance.AppCompat.Body2."
+            android:paddingBottom="12dp" />
+
+
+        <TextView
+            android:id="@+id/tv_view_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Xem và chỉnh sửa task: Nhấn vào task để xem chi tiết hoặc chỉnh sửa."
+            style="@style/Base.TextAppearance.AppCompat.Body2."
+            android:paddingBottom="12dp" />
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Xóa task: Vuốt trái task để xóa nhanh chóng."
+            style="@style/Base.TextAppearance.AppCompat.Body2."
+            android:paddingBottom="12dp" />
+
+        <TextView
+            android:id="@+id/tv_focus_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chế độ tập trung: Hẹn giờ và tập trung làm việc trong khoảng thời gian đã chọn."
+            style="@style/Base.TextAppearance.AppCompat.Body2."
+            android:paddingBottom="12dp" />
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tìm kiếm: Nhập từ khóa để tìm nhanh các task đã tạo."
+            style="@style/Base.TextAppearance.AppCompat.Body2."/>
+
+    </LinearLayout>
+
+</ScrollView>

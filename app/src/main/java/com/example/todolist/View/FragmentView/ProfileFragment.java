@@ -1,6 +1,7 @@
 package com.example.todolist.View.FragmentView;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,12 +17,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.todolist.R;
+import com.example.todolist.Utils.CustomToast;
 import com.example.todolist.ViewModel.TagViewModel;
 import com.example.todolist.ViewModel.TaskViewModel;
 import com.example.todolist.databinding.FragmentProfileBinding;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
 public class ProfileFragment extends Fragment {
@@ -42,13 +47,13 @@ public class ProfileFragment extends Fragment {
         View mView = binding.getRoot();
 
         context = getContext();
-        initData();
+        initData(mView);
         setDarkMode(false);
 
         return mView;
     }
 
-    private void initData() {
+    private void initData( View mView) {
         taskViewModel.getTotalTaskCount().observe(getViewLifecycleOwner(), total -> {
             binding.tvTaskTotal.setText(String.valueOf(total));
         });
@@ -58,6 +63,13 @@ public class ProfileFragment extends Fragment {
         });
 
         binding.reset.setOnClickListener(view -> showConfirmResetAllTasks());
+
+        binding.ui.setOnClickListener(view->{showBottomSheetTheme(mView);
+        });
+
+        binding.help.setOnClickListener(view->{
+            showIntroBottomSheet(mView);
+        });
     }
 
     private void showConfirmResetAllTasks() {
@@ -79,8 +91,8 @@ public class ProfileFragment extends Fragment {
                 String text = input.getText().toString().trim();
                 if (text.equalsIgnoreCase("RESET")) {
                     taskViewModel.deleteAll();
-                   // tagViewModel.deleteAll();
-                    Toast.makeText(context, "All tasks have been deleted", Toast.LENGTH_SHORT).show();
+                    //tagViewModel.deleteAll();
+                    CustomToast.showCustomToast(getContext(),"All tasks have been deleted");
                     dialog.dismiss();
                 } else {
                     input.setError("Please type RESET to confirm");
@@ -91,11 +103,47 @@ public class ProfileFragment extends Fragment {
         dialog.show();
     }
 
+
     public void setDarkMode(boolean isDarkMode) {
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+    }
+
+    private void showBottomSheetTheme(View mView) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(mView.getContext());
+        View view = LayoutInflater.from(mView.getContext()).inflate(R.layout.bottom_sheet_theme, null);
+        bottomSheetDialog.setContentView(view);
+
+        RadioGroup radioGroup = view.findViewById(R.id.radioGroupTheme);
+        RadioButton radioLight = view.findViewById(R.id.radioLight);
+        RadioButton radioDark = view.findViewById(R.id.radioDark);
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
+            radioLight.setChecked(true);
+        } else if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+            radioDark.setChecked(true);
+        }
+
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.radioLight) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            } else if (checkedId == R.id.radioDark) {
+              setDarkMode(true);
+            }
+            bottomSheetDialog.dismiss();
+        });
+
+        bottomSheetDialog.show();
+    }
+
+    private void showIntroBottomSheet(View mView) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(mView.getContext());
+        View view = LayoutInflater.from(mView.getContext()).inflate(R.layout.help, null);
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
     }
 }

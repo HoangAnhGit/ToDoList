@@ -71,8 +71,8 @@
                 views.setViewVisibility(R.id.iconComplete, View.GONE);
                 views.setViewVisibility(R.id.iconNotComplete, View.GONE);
             }
-//            Intent fillInIntent = new Intent();
-//            views.setOnClickFillInIntent(R.id.layout_task_widget, fillInIntent);
+            Intent fillInIntent = new Intent();
+            views.setOnClickFillInIntent(R.id.layout_task_widget, fillInIntent);
             return views;
         }
 

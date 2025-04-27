@@ -120,7 +120,7 @@
     </array>
     }
 
-    
+
     <string name="NoReminder">No Reminder</string>
     <string name="ReminderAtEvent">Remind At Event</string>
     <string name="ReminderFifteenMinuteBefore">Reminder Fifteen Minute Before</string>

@@ -24,7 +24,7 @@ public class WidgetTask extends AppWidgetProvider {
             // Empty view
             views.setEmptyView(R.id.widget_task_grid, R.id.widget_empty_view);
 
-            // mở MainActivity
+// mở MainActivity
             Intent clickIntent = new Intent(context, MainActivity.class);
             PendingIntent clickPendingIntent = PendingIntent.getActivity(
                     context, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE

@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View mview = binding.getRoot();
         setContentView(mview);
-
-
         transactionFragment();
 
         binding.floatingActionButton.setOnClickListener(view -> {

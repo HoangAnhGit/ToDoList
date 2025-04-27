@@ -179,6 +179,8 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
 
             taskViewModel.refreshOverdueTasks();
 
+            WidgetBroadcastHelper.notifyWidgetDataChanged(requireContext());
+
             if (tasks.isEmpty()) {
                 binding.LayoutNoTask.setVisibility(View.VISIBLE);
                 binding.rcvTask.setVisibility(View.GONE);

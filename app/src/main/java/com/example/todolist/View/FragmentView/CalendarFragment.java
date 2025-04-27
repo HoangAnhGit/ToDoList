@@ -39,6 +39,7 @@ import com.example.todolist.ViewModel.TagViewModel;
 import com.example.todolist.ViewModel.TaskViewModel;
 import com.example.todolist.databinding.DialogDeltailTaskBinding;
 import com.example.todolist.databinding.FragmentCalendarBinding;
+import com.example.todolist.Widget.WidgetBroadcastHelper;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -249,6 +250,7 @@ public class CalendarFragment extends Fragment implements ItemTouchHelperListene
                     .setIcon(R.drawable.logo)
                     .setPositiveButton("🗑️ Có", (dialog, which) -> {
                         taskViewModel.delete(task);
+                        WidgetBroadcastHelper.notifyWidgetDataChanged(requireContext());
                         Snackbar snackbar = Snackbar.make(binding.getRoot(), "🗑️ Đã xoá nhiệm vụ", Snackbar.LENGTH_LONG)
                                 .setAction("Hoàn tác", v -> taskViewModel.insert(task));
                         snackbar.show();

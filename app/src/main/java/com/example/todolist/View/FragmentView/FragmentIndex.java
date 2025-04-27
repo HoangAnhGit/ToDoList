@@ -36,6 +36,7 @@ import com.example.todolist.View.ActivityView.EditTask;
 import com.example.todolist.View.rcv.FilterAdapter;
 import com.example.todolist.View.rcv.TaskAdapter;
 import com.example.todolist.ViewModel.TaskViewModel;
+import com.example.todolist.Widget.WidgetBroadcastHelper;
 import com.example.todolist.databinding.DialogDeltailTaskBinding;
 import com.example.todolist.databinding.FragmentIndexBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -257,6 +258,7 @@ public class FragmentIndex extends Fragment implements ItemTouchHelperListener {
                     .setIcon(R.drawable.logo)
                     .setPositiveButton("🗑️ Có", (dialog, which) -> {
                         taskViewModel.delete(task);
+                        WidgetBroadcastHelper.notifyWidgetDataChanged(requireContext());
                         Snackbar snackbar = Snackbar.make(binding.getRoot(), "🗑️ Đã xoá nhiệm vụ", Snackbar.LENGTH_LONG)
                                 .setAction("Hoàn tác", v -> taskViewModel.insert(task));
                         snackbar.show();

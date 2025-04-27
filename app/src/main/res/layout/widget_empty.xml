@@ -7,7 +7,7 @@
     android:gravity="center"
     android:padding="16dp"
     android:background="@drawable/bg_widget_item"
-    android:backgroundTint="@color/light_gray">
+    android:backgroundTint="@color/light_purple">
 
     <ImageView
         android:id="@+id/empty_image"

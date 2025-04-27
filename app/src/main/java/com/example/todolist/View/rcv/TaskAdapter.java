@@ -18,6 +18,7 @@ import com.example.todolist.R;
 import com.example.todolist.Utils.CustomToast;
 import com.example.todolist.Utils.TimeUtils;
 import com.example.todolist.ViewModel.TaskViewModel;
+import com.example.todolist.Widget.WidgetBroadcastHelper;
 import com.example.todolist.databinding.ItemTaskBinding;
 
 import java.time.LocalDate;
@@ -83,6 +84,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> im
         holder.binding.iconComplete.setOnClickListener(view -> {
             task.setStatus(TaskStatus.PENDING);
             taskViewModel.update(task);
+            WidgetBroadcastHelper.notifyWidgetDataChanged(context);
             holder.binding.iconComplete.setVisibility(View.GONE);
             holder.binding.iconNotComplete.setVisibility(View.VISIBLE);
         });
@@ -91,6 +93,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> im
             if (!task.getDueDate().isAfter(dateToday)) {
                 task.setStatus(TaskStatus.COMPLETED);
                 taskViewModel.update(task);
+                WidgetBroadcastHelper.notifyWidgetDataChanged(context);
                 holder.binding.iconComplete.setVisibility(View.VISIBLE);
                 holder.binding.iconNotComplete.setVisibility(View.GONE);
             } else {

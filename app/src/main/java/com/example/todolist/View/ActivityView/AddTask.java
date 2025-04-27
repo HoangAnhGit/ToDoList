@@ -32,6 +32,7 @@ import com.example.todolist.View.rcv.ColorAdapter;
 import com.example.todolist.View.rcv.ImageAdapter;
 import com.example.todolist.ViewModel.TagViewModel;
 import com.example.todolist.ViewModel.TaskViewModel;
+import com.example.todolist.Widget.WidgetBroadcastHelper;
 import com.example.todolist.databinding.ActivityAddTaskBinding;
 import com.example.todolist.databinding.DialogReminderBinding;
 import com.example.todolist.databinding.DialogRepeatBinding;
@@ -130,6 +131,8 @@ public class AddTask extends AppCompatActivity {
                 newTask.setDescription(capitalizedDes);
             }
             taskViewModel.insert(newTask);
+            //Gọi cập nhật widget ngay sau khi thêm Task
+            WidgetBroadcastHelper.notifyWidgetDataChanged(getApplicationContext());
             CustomToast.showCustomToast(this,"Create Task Complete");
 
             finish();

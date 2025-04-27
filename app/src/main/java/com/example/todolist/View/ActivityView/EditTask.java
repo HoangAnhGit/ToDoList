@@ -33,6 +33,7 @@ import com.example.todolist.View.rcv.ColorAdapter;
 import com.example.todolist.View.rcv.ImageAdapter;
 import com.example.todolist.ViewModel.TagViewModel;
 import com.example.todolist.ViewModel.TaskViewModel;
+import com.example.todolist.Widget.WidgetBroadcastHelper;
 import com.example.todolist.databinding.ActivityEditTaskBinding;
 import com.example.todolist.databinding.DialogReminderBinding;
 import com.example.todolist.databinding.DialogRepeatBinding;
@@ -159,6 +160,8 @@ public class EditTask extends AppCompatActivity {
                 taskEdit.setDescription(capitalizedDes);
             }
             taskViewModel.update(taskEdit);
+            //Gọi cập nhật widget ngay sau khi thêm Task
+            WidgetBroadcastHelper.notifyWidgetDataChanged(getApplicationContext());
             CustomToast.showCustomToast(this, "Update Task Complete");
             finish();
         });

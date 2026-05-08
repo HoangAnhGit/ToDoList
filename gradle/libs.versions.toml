@@ -36,4 +36,3 @@ swipe-reveal-layout = { module = "com.chauthai.swipereveallayout:swipe-reveal-la
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-

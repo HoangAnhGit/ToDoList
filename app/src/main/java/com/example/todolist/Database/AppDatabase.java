@@ -12,10 +12,14 @@ import com.example.todolist.Model.Task;
 import com.example.todolist.Utils.LocalDateConverter;
 import com.example.todolist.Utils.LocalTimeConverter;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Database(entities = {Task.class, Tag.class}, version = 1)
 @TypeConverters({LocalDateConverter.class, LocalTimeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "UpToDo.db";
+    private static final ExecutorService DATABASE_EXECUTOR = Executors.newSingleThreadExecutor();
     private static AppDatabase instance;
 
     public static synchronized AppDatabase getInstance(Context context) {
@@ -29,4 +33,12 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TaskDAO taskDao();
     public abstract TagDAO tagDao();
+
+    public static ExecutorService databaseExecutor() {
+        return DATABASE_EXECUTOR;
+    }
+
+    public static void shutdownExecutor() {
+        DATABASE_EXECUTOR.shutdown();
+    }
 }

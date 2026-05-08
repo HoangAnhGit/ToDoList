@@ -2,10 +2,10 @@ package com.example.todolist.ViewModel;
 
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.todolist.Model.Tag;
 import com.example.todolist.R;
@@ -17,6 +17,8 @@ public class TagViewModel extends AndroidViewModel {
 
     private final TagRepository repository;
     private final LiveData<List<Tag>> allTags;
+    private final Observer<List<Tag>> tagObserver;
+    private boolean hasInitializedDefaultTags = false;
 
 
 
@@ -24,14 +26,19 @@ public class TagViewModel extends AndroidViewModel {
         super(application);
         repository = new TagRepository(application);
         allTags = repository.getAllTags();
-        allTags.observeForever(tags -> {
+        tagObserver = tags -> {
             if (tags == null || tags.isEmpty()) {
                 initDefaultTag();
             }
-        });
+        };
+        allTags.observeForever(tagObserver);
     }
 
     public void initDefaultTag() {
+        if (hasInitializedDefaultTags) {
+            return;
+        }
+        hasInitializedDefaultTags = true;
         Tag noTag = new Tag("No tag");
         noTag.setUid(1);
         repository.insert(noTag);
@@ -60,6 +67,12 @@ public class TagViewModel extends AndroidViewModel {
 
     public void deleteAll(){
         repository.deleteAllTag();
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        allTags.removeObserver(tagObserver);
     }
 
 }

@@ -10,9 +10,11 @@ import com.example.todolist.Model.Tag;
 
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TagRepository {
+    private static final ExecutorService DATABASE_EXECUTOR = Executors.newSingleThreadExecutor();
     private final TagDAO tagDao;
 
     public TagRepository(Application application) {
@@ -33,10 +35,10 @@ public class TagRepository {
     }
 
     public void insert(Tag tag) {
-        Executors.newSingleThreadExecutor().execute(() -> tagDao.insertTag(tag));
+        DATABASE_EXECUTOR.execute(() -> tagDao.insertTag(tag));
     }
 
     public void deleteAllTag(){
-        Executors.newSingleThreadExecutor().execute(tagDao::deleteAll);
+        DATABASE_EXECUTOR.execute(tagDao::deleteAll);
     }
 }

@@ -14,9 +14,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TaskRepository {
+    private static final ExecutorService DATABASE_EXECUTOR = Executors.newSingleThreadExecutor();
     private final TaskDAO taskDao;
     private final LiveData<List<Task>> allTasks;
 
@@ -36,7 +38,7 @@ public class TaskRepository {
     }
 
     public void insert(Task task) {
-        Executors.newSingleThreadExecutor().execute(() -> taskDao.insertTask(task));
+        DATABASE_EXECUTOR.execute(() -> taskDao.insertTask(task));
     }
 
     public long insertLong(Task task) {
@@ -44,14 +46,14 @@ public class TaskRepository {
     }
 
     public void delete(Task task) {
-        Executors.newSingleThreadExecutor().execute(() -> taskDao.deleteTask(task));
+        DATABASE_EXECUTOR.execute(() -> taskDao.deleteTask(task));
     }
 
     public void update(Task task) {
-        Executors.newSingleThreadExecutor().execute(() -> taskDao.updateTask(task));
+        DATABASE_EXECUTOR.execute(() -> taskDao.updateTask(task));
     }
     public void deleteAll() {
-        Executors.newSingleThreadExecutor().execute(taskDao::deleteAll);
+        DATABASE_EXECUTOR.execute(taskDao::deleteAll);
     }
 
     //20/4
@@ -97,7 +99,7 @@ public class TaskRepository {
 
     //overdue
     public void updateOverdueTasks() {
-        Executors.newSingleThreadExecutor().execute(() -> {
+        DATABASE_EXECUTOR.execute(() -> {
             List<Task> tasks = taskDao.getAllTasksNow();
             for (Task task : tasks) {
                 if (task.isOverdueNow() && task.getStatus() != TaskStatus.OVERDUE) {

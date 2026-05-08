@@ -37,4 +37,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public static ExecutorService databaseExecutor() {
         return DATABASE_EXECUTOR;
     }
+
+    public static void shutdownExecutor() {
+        DATABASE_EXECUTOR.shutdown();
+    }
 }

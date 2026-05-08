@@ -5,6 +5,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import com.example.todolist.Database.AppDatabase;
+
 public class MyApplicationChanel extends Application {
     public static final String CHANNEL_ID = "focus_mode_channel";
 
@@ -24,5 +26,11 @@ public class MyApplicationChanel extends Application {
             NotificationManager nm = getSystemService(NotificationManager.class);
             nm.createNotificationChannel(channel);
         }
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        AppDatabase.shutdownExecutor();
     }
 }

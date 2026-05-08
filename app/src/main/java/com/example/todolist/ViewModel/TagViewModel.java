@@ -28,7 +28,7 @@ public class TagViewModel extends AndroidViewModel {
         repository = new TagRepository(application);
         allTags = repository.getAllTags();
         tagObserver = tags -> {
-            if ((tags == null || tags.isEmpty()) && !hasInitializedDefaultTags.get()) {
+            if (tags == null || tags.isEmpty()) {
                 initDefaultTag();
             }
         };

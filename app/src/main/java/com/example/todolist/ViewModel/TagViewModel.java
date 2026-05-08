@@ -11,6 +11,7 @@ import com.example.todolist.Model.Tag;
 import com.example.todolist.R;
 import com.example.todolist.Repository.TagRepository;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import io.reactivex.rxjava3.annotations.NonNull;
 
 public class TagViewModel extends AndroidViewModel {
@@ -18,7 +19,7 @@ public class TagViewModel extends AndroidViewModel {
     private final TagRepository repository;
     private final LiveData<List<Tag>> allTags;
     private final Observer<List<Tag>> tagObserver;
-    private boolean hasInitializedDefaultTags = false;
+    private final AtomicBoolean hasInitializedDefaultTags = new AtomicBoolean(false);
 
 
 
@@ -27,7 +28,7 @@ public class TagViewModel extends AndroidViewModel {
         repository = new TagRepository(application);
         allTags = repository.getAllTags();
         tagObserver = tags -> {
-            if (tags == null || tags.isEmpty()) {
+            if ((tags == null || tags.isEmpty()) && !hasInitializedDefaultTags.get()) {
                 initDefaultTag();
             }
         };
@@ -35,10 +36,9 @@ public class TagViewModel extends AndroidViewModel {
     }
 
     public void initDefaultTag() {
-        if (hasInitializedDefaultTags) {
+        if (!hasInitializedDefaultTags.compareAndSet(false, true)) {
             return;
         }
-        hasInitializedDefaultTags = true;
         Tag noTag = new Tag("No tag");
         noTag.setUid(1);
         repository.insert(noTag);
